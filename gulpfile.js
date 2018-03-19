@@ -169,7 +169,6 @@ gulp.task('js:lint', () => {
   Image Task:
 
   * Minifies SVGs, JPGs, and PNGs
-  * Calls 3 seperate tasks synchronously
 
 */
 gulp.task('images', cb => {

@@ -8,7 +8,8 @@ const site = (() => {
     // Page set up code goes here
 
     // Example height group usage
-    new HeightGroup('.js-box').watchElements()
+    const contentElements = new HeightGroup('.js-match-content')
+    contentElements.watchElements()
 
     if (typeof cb === 'function') cb()
     else throw new Error('Callback must be a function.')
