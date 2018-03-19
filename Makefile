@@ -40,7 +40,7 @@ perms:
 	# Install node deps
 	npm install
 
-	# Installing composer deps
+	# Installing composer deps - requires php7.2
 	composer install
 
 	# Running gulp
