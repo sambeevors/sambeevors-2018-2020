@@ -1,38 +1,14 @@
 'use strict'
 
-import './polyfills/closest.js'
-import HeightGroup from './helpers/heightGroup.js'
+import 'lazysizes'
 
-const site = (() => {
-  const setupPage = (cb) => {
-    // Page set up code goes here
+import * as $ from 'pumpkin.js'
+import objectFitImages from 'object-fit-images'
+import HeightGroup from './helpers/heightGroup'
 
-    // Example height group usage
-    const contentElements = new HeightGroup('.js-match-content')
-    contentElements.watchElements()
+$.ready(() => {
+  objectFitImages()
 
-    if (typeof cb === 'function') cb()
-    else throw new Error('Callback must be a function.')
-  }
-
-  const setupEvents = () => {
-    // Page event code goes here
-
-    console.log('Page has been set up.')
-  }
-
-  return {
-    init: () => {
-      const setup = () => {
-        setupPage(() => {
-          setupEvents()
-        })
-      }
-
-      if (document.readyState !== 'loading') setup()
-      else document.addEventListener('DOMContentLoaded', setup)
-    }
-  }
-})()
-
-site.init()
+  const header = new HeightGroup('.js-header-spacer')
+  header.watchElements()
+})

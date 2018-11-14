@@ -4,6 +4,13 @@
 @push('head')
 
     {{-- You can use the head stack to push page specific elements to the head, such as stylesheets --}}
+    <noscript>
+        <style>
+            .lqip {
+                display: none !important;
+            }
+        </style>
+    </noscript>
 
 @endpush
 
@@ -12,66 +19,44 @@
 {{-- https://laravel.com/docs/5.4/blade#template-inheritance --}}
 @section('body')
 
+    @include('_partials.lazyload-image', [
+        'src' => 'img/large-image-1.jpg',
+        'class' => 'object-fit-cover'
+    ])
+    
     <div class="container mx-auto leading-normal">
-        <div class="flex p-4">
-            <div class="flex-1">
-                <h2 class="text-3xl">This is a heading</h2>
-            </div>
-        </div>
-        <div class="lg:flex p-4">
-            <div class="flex-1 lg:mr-6 mb-4 lg:mb-0">
+        <div class="flex p-4 justify-center">
+            <div class="flex-1 max-w-lg">
+                <h2 class="text-3xl lg:text-4xl mb-6">Urbanout: Why people are moving away from busy cities</h2>
 
-                @include('_partials.placeholder-text', ['paragraphs' => 2])
+                <p class="text-lg lg:text-xl mb-4 text-grey-dark">
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perspiciatis id rerum, iste laboriosam fugiat beatae doloremque veniam! Totam tempora officiis, eius error accusantium doloribus quos deserunt dolorem, illum facilis atque.
+                </p>
 
-                <div class="mt-4">
-                    <button type="button" class="btn-primary mr-2">Button</button>
-                    <button type="button" class="btn">Button</button>
+                @include('_partials.placeholder-text', ['paragraphs' => 8])
+
+                @include('_partials.lazyload-image', [
+                    'src' => 'img/large-image-2.jpg',
+                    'class' => 'object-fit-cover'
+                ])
+
+                @include('_partials.placeholder-text', ['paragraphs' => 5])
+
+                @include('_partials.lazyload-image', [
+                    'src' => 'img/large-image-3.jpg',
+                    'class' => 'object-fit-cover'
+                ])
+
+                @include('_partials.placeholder-text', ['paragraphs' => 6])
+
+                <hr class="border-t border-grey-light my-8">
+
+                <div class="my-6">
+                    <p class="text-center italic text-sm text-grey mb-4">If you enjoyed this article and want to be notified in the future...</p>
+                    <p class="text-center"><a href="#" class="no-underline inline-block bg-green hover:bg-green-dark text-white font-serif uppercase tracking-wide font-semibold text-center px-6 py-4 text-sm">Subscribe</a></p>
                 </div>
 
             </div>
-            <div class="flex-1 flex justify-center items-center">
-
-                @include('_partials.placeholder-image', ['width' => 540, 'height' => 300, 'addP' => true])
-
-            </div>
-        </div>
-        <div class="flex p-4">
-            <div class="flex-1">
-                <h3 class="text-2xl mb-4">This is a smaller heading</h3>
-
-                @include('_partials.placeholder-text', ['paragraphs' => 2])
-
-            </div>
-        </div>
-        <div class="lg:flex p-4 justify-between">
-
-            <div class="flex-1 bg-grey-lighter p-6 mx-auto mb-6 lg:mr-4 w-full lg:max-w-sm">
-                @include('_partials/placeholder-image', ['width' => 325, 'height' => 175, 'addP' => true, 'class' => 'w-full h-auto'])
-                <h4 class="my-4 text-xl">Box title</h4>
-                <div class="js-match-content">
-                    @include('_partials.placeholder-text', ['paragraphs' => 1])
-                </div>
-                <button type="button" class="btn-secondary block w-full mt-6">Button</button>
-            </div>
-
-            <div class="flex-1 bg-grey-lighter p-6 mx-auto mb-6 lg:mr-4 w-full lg:max-w-sm">
-                @include('_partials/placeholder-image', ['width' => 325, 'height' => 175, 'addP' => true, 'class' => 'w-full h-auto'])
-                <h4 class="my-4 text-xl">Box title</h4>
-                <div class="js-match-content">
-                    @include('_partials.placeholder-text', ['paragraphs' => 1])
-                </div>
-                <button type="button" class="btn-secondary block w-full mt-6">Button</button>
-            </div>
-
-            <div class="flex-1 bg-grey-lighter p-6 mx-auto mb-6 w-full lg:max-w-sm">
-                @include('_partials/placeholder-image', ['width' => 325, 'height' => 175, 'addP' => true, 'class' => 'w-full h-auto'])
-                <h4 class="my-4 text-xl">Box title</h4>
-                <div class="js-match-content">
-                    @include('_partials.placeholder-text', ['paragraphs' => 1])
-                </div>
-                <button type="button" class="btn-secondary block w-full mt-6">Button</button>
-            </div>
-            
         </div>
     </div>
 

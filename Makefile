@@ -1,4 +1,4 @@
-node_version = 8.9.4
+node_version = 10.13.0
 
 all:
 	# Install Node deps

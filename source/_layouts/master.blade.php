@@ -30,7 +30,7 @@
         $files_found = [];
 
         foreach ($dir_files as $key => $dir_file) {
-            $search = ['.min.css', '.js'];
+            $search = ['.css', '.js'];
             $blacklist = ['.map'];
 
             if (strposa($dir_file, $search) !== false) {

@@ -3,26 +3,27 @@
 const gulp = require('gulp')
 const es = require('event-stream')
 const runSequence = require('run-sequence')
-const tailwindcss = require('tailwindcss')
-const postcss = require('postcss')
-const sassyImport = require('postcss-sassy-import')
-const purge = require('gulp-purgecss')
-const cssnext = require('postcss-cssnext')
 const args = require('yargs').argv
 const exec = require('child_process').exec
+const { transform } = require('gulp-html-transform')
+const { lqip } = require('gulp-html-lqip')
 
 const $ = require('gulp-load-plugins')({
   pattern: [
     'gulp-*',
     'gulp.*',
+    'postcss-*',
+    'tailwindcss',
     'autoprefixer',
     'browser-sync',
     'webpack',
-    'webpack-stream'
+    'webpack-stream',
+    'cssnano',
+    'precss'
   ]
 })
 
-const isProduction = (typeof args.production !== 'undefined')
+const isProduction = typeof args.production !== 'undefined'
 const isLocal = !isProduction
 
 /*
@@ -34,23 +35,17 @@ const isLocal = !isProduction
 
 */
 
-const outputFolder = (isLocal) ? 'build_local' : 'build_production'
+const outputFolder = isLocal ? 'build_local' : 'build_production'
 
 const paths = {
   css: {
-    watch: [
-      './source/_assets/css/**/*'
-    ],
+    watch: ['./source/_assets/css/**/*'],
     src: './source/_assets/css/main.css',
     dest: './source/css'
   },
   js: {
-    watch: [
-      './source/_assets/js/**/*'
-    ],
-    src: [
-      './source/_assets/js/main.js'
-    ],
+    watch: ['./source/_assets/js/**/*'],
+    src: ['./source/_assets/js/main.js'],
     dest: './source/js'
   },
   imagemin: {
@@ -58,9 +53,7 @@ const paths = {
     dest: './source/img'
   },
   svgmin: {
-    watch: [
-      './source/_assets/img/svg/*.svg'
-    ],
+    watch: ['./source/_assets/img/svg/*.svg'],
     dest: './source/img'
   },
   php: {
@@ -80,41 +73,63 @@ const paths = {
   * Creates minified version
 
 */
+const postCssPlugins = [
+  $.postcssEasyImport({ prefix: '_', extensions: ['.css'] }),
+  $.tailwindcss('./tailwind-config.js'),
+  $.precss({
+    unresolved: 'ignore'
+  }),
+  $.postcssAutomath(),
+  $.postcssInlineSvg(),
+  $.autoprefixer() // check browserslist in package.json
+]
+
+isProduction && postCssPlugins.push($.cssnano())
+
 gulp.task('css', () => {
-  return gulp.src(paths.css.src)
-    .pipe($.plumber())
-    .pipe(isProduction ? $.util.noop() : $.sourcemaps.init())
-    .pipe($.postcss([
-      sassyImport(),
-      tailwindcss('./tailwind-config.js'),
-      cssnext(),
-      $.autoprefixer({
-        browsers: ['>2%']
-      })
-    ]))
-    .pipe(isLocal ? $.util.noop() : purge({
-      content: [
-        './source/**/*.php',
-        './source/_assets/js/**/*.js'
-      ],
-      extractors: [
-        {
-          extractor: class {
-            static extract (content) {
-              return content.match(/[A-z0-9-:\/]+/g) || []
-            }
-          },
-          extensions: ['php', 'js']
-        }
-      ]
-    }))
-    .pipe(gulp.dest(paths.css.dest))
-    .pipe($.rename({
-      suffix: '.min'
-    }))
-    .pipe($.cleanCss())
-    .pipe(isProduction ? $.util.noop() : $.sourcemaps.write('./'))
-    .pipe(gulp.dest(paths.css.dest))
+  return (
+    gulp
+      .src(paths.css.src)
+      .pipe($.sourcemaps.init())
+      .pipe($.postcss(postCssPlugins, { parser: $.postcssScss }))
+      .pipe(
+        isLocal
+          ? $.util.noop()
+          : $.purgecss({
+            content: [
+              './source/**/*.blade.php',
+              './source/_assets/js/**/*.js',
+              './source/_assets/img/**/*.svg'
+            ],
+            whitelistPatterns: [
+              /flickity/,
+              /^hf-/,
+              /editable/,
+              /ex-/,
+              /logged-in/,
+              /admin/
+            ], // Example: Whitelist third party classes (eg. Flickity)
+            extractors: [
+              {
+                extractor: class {
+                  static extract (content) {
+                    return content.match(/[A-z0-9-:/]+/g) || []
+                  }
+                  },
+                extensions: ['php', 'js', 'svg']
+              }
+            ]
+          })
+      )
+      .pipe($.sourcemaps.write('./'))
+      .pipe(gulp.dest(paths.css.dest))
+      // reload browserSync if we're not on production
+      .pipe(
+        $.browserSync
+          ? $.browserSync.stream({ match: '**/*.css' })
+          : $.util.noop()
+      )
+  )
 })
 
 /*
@@ -129,29 +144,37 @@ gulp.task('js', () => {
   const streams = []
   paths.js.src.forEach(item => {
     streams.push(
-      gulp.src(item)
-        .pipe($.webpackStream({
-          devtool: isProduction ? 'source-map' : 'eval-source-map',
-          module: {
-            rules: [
-              {
-                test: /\.js$/,
-                loader: 'babel-loader'
+      gulp
+        .src(item)
+        .pipe(
+          $.webpackStream(
+            {
+              devtool: isProduction ? 'source-map' : 'eval-source-map',
+              module: {
+                rules: [
+                  {
+                    test: /\.js$/,
+                    loader: 'babel-loader'
+                  }
+                ]
+              },
+              plugins: isLocal
+                ? []
+                : [
+                  new $.webpack.optimize.UglifyJsPlugin({
+                    sourceMap: true,
+                    compress: {
+                      warnings: false
+                    }
+                  })
+                ],
+              output: {
+                filename: item.split('/').pop()
               }
-            ]
-          },
-          plugins: isLocal ? [] : [
-            new $.webpack.optimize.UglifyJsPlugin({
-              sourceMap: true,
-              compress: {
-                warnings: false
-              }
-            })
-          ],
-          output: {
-            filename: item.split('/').pop()
-          }
-        }, $.webpack))
+            },
+            $.webpack
+          )
+        )
         .pipe(gulp.dest(paths.js.dest))
     )
   })
@@ -159,7 +182,8 @@ gulp.task('js', () => {
 })
 
 gulp.task('js:lint', () => {
-  return gulp.src(paths.js.watch)
+  return gulp
+    .src(paths.js.watch)
     .pipe($.plumber())
     .pipe($.eslint())
     .pipe($.eslint.format())
@@ -176,20 +200,24 @@ gulp.task('images', cb => {
 })
 
 gulp.task('svgmin', () => {
-  return gulp.src(paths.svgmin.watch)
+  return gulp
+    .src(paths.svgmin.watch)
     .pipe($.plumber())
     .pipe($.svgmin())
     .pipe(gulp.dest(paths.svgmin.dest))
 })
 
 gulp.task('imagemin', () => {
-  return gulp.src(paths.imagemin.watch)
+  return gulp
+    .src(paths.imagemin.watch)
     .pipe($.newer(paths.imagemin.dest))
-    .pipe($.imagemin({
-      optimizationLevel: 7,
-      interlaced: true,
-      progressive: true
-    }))
+    .pipe(
+      $.imagemin({
+        optimizationLevel: 7,
+        interlaced: true,
+        progressive: true
+      })
+    )
     .pipe(gulp.dest(paths.imagemin.dest))
 })
 
@@ -202,20 +230,24 @@ gulp.task('imagemin', () => {
 
 */
 gulp.task('build', cb => {
-  runSequence('jigsaw', 'fonts', 'htmltidy', cb)
+  runSequence('jigsaw', 'fonts', 'lqip', 'html', cb)
 })
 
-const reload = (isLocal) ? $.browserSync.reload : $.util.noop
+const reload = isLocal ? $.browserSync.reload : $.util.noop
 gulp.task('fonts', () => {
-  return gulp.src('./source/_assets/fonts/**/*.{woff,woff2,eot,otf,ttf}')
+  return gulp
+    .src('./source/_assets/fonts/**/*.{woff,woff2,eot,otf,ttf}')
     .pipe(gulp.dest(`${paths.build.dest}/fonts`))
 })
 
-const jigsawTask = (isLocal) ? 'jigsaw build --pretty=false' : './vendor/bin/jigsaw build production --pretty=false'
+const jigsawTask = isLocal
+  ? 'jigsaw build --pretty=false'
+  : './vendor/bin/jigsaw build production --pretty=false'
 gulp.task('jigsaw', cb => {
   exec(jigsawTask, err => {
     if (err) console.log(err)
-    gulp.src(`${paths.build.dest}/index.html`)
+    gulp
+      .src(`${paths.build.dest}/index.html`)
       .pipe($.connect.reload())
       .on('end', () => {
         reload()
@@ -224,18 +256,46 @@ gulp.task('jigsaw', cb => {
   })
 })
 
-gulp.task('htmltidy', () => {
-  return gulp.src(paths.build.watch)
-    .pipe($.htmltidy({
-      doctype: 'html5',
-      hideComments: true,
-      indent: true,
-      indentWithTabs: true,
-      wrap: false,
-      dropEmptyElement: false,
-      breakBeforeBr: true,
-      mergeSpans: false
-    }))
+gulp.task('lqip', () => {
+  return gulp
+    .src(paths.build.watch)
+    .pipe(
+      transform(
+        lqip({
+          base: `${__dirname}/${outputFolder}`,
+          query: 'img.lazyload', // match lazysizes class
+          // preferColors: true,
+          addStyles: true,
+          carryClassList: false, // leave the lazyload class alone
+          useDataSrc: true,
+          classList: 'mb-4'
+        })
+      )
+    )
+    .pipe(gulp.dest(paths.build.dest))
+})
+
+gulp.task('html', () => {
+  return gulp
+    .src(paths.build.watch)
+    .pipe(
+      isProduction
+        ? $.htmlmin({
+          collapseWhitespace: true,
+          minifyCSS: true,
+          minifyJS: true
+        })
+        : $.htmltidy({
+          doctype: 'html5',
+          hideComments: false,
+          indent: true,
+          indentWithTabs: true,
+          wrap: false,
+          dropEmptyElement: false,
+          breakBeforeBr: true,
+          mergeSpans: false
+        })
+    )
     .pipe(gulp.dest(paths.build.dest))
 })
 
@@ -248,12 +308,16 @@ gulp.task('browserSync', () => {
 })
 
 gulp.task('serve', cb => {
-  exec('jigsaw serve', err => {
-    if (err) console.log(err)
-  }, cb)
+  exec(
+    'jigsaw serve',
+    err => {
+      if (err) console.log(err)
+    },
+    cb
+  )
 })
 
-const jsTasks = (isProduction) ? ['js'] : ['js:lint', 'js']
+const jsTasks = isProduction ? ['js'] : ['js:lint', 'js']
 gulp.task('watch', ['browserSync'], cb => {
   $.watch('source/**/*.blade.php', () => runSequence('build'))
   $.watch(paths.css.watch, () => runSequence(['css'], 'build'))
