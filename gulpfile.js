@@ -5,8 +5,7 @@ const es = require('event-stream')
 const runSequence = require('run-sequence')
 const args = require('yargs').argv
 const exec = require('child_process').exec
-const { transform } = require('gulp-html-transform')
-const { lqip } = require('gulp-html-lqip')
+const { transform, lqip } = require('gulp-html-transform')
 
 const $ = require('gulp-load-plugins')({
   pattern: [
@@ -263,11 +262,11 @@ gulp.task('lqip', () => {
       transform(
         lqip({
           base: `${__dirname}/${outputFolder}`,
+          // method: 'primaryColor',
           query: 'img.lazyload', // match lazysizes class
-          // preferColors: true,
+          srcAttribute: 'data-src',
           addStyles: true,
           carryClassList: false, // leave the lazyload class alone
-          useDataSrc: true,
           classList: 'mb-4'
         })
       )
