@@ -4,36 +4,36 @@ import 'lazysizes'
 
 import * as $ from 'pumpkin.js'
 import objectFitImages from 'object-fit-images'
+import { IdleQueue } from 'idlize/IdleQueue.mjs'
 import HeightGroup from './helpers/heightGroup'
+import Modal from './lib/modal'
+import modalMarkup from './lib/modal.markup'
+
+const queue = new IdleQueue()
 
 $.ready(() => {
-  objectFitImages()
+  document.addEventListener('lazyloaded', e => {
+    console.log(e.target)
+    objectFitImages(e.target)
+  })
 
   const header = new HeightGroup('.js-header-spacer')
   header.watchElements()
 
-  const subscribeBtn = $.qs('.js-subscribe')
-  const modalContainer = $.qs('.js-modal-container')
+  let $subscribeModal
+  const $subscribeBtn = $.qs('.js-subscribe')
 
-  const toggleModal = () => {
-    modalContainer.classList.toggle('pointer-events-none')
-    modalContainer.classList.toggle('opacity-0')
-  }
+  if ($subscribeBtn) {
+    queue.pushTask(() => {
+      $subscribeModal = new Modal(modalMarkup)
+      $subscribeModal.create()
+    })
 
-  $.on('click', subscribeBtn, e => {
-    e.preventDefault()
-    toggleModal()
-  })
-
-  $.on('click', modalContainer, '.js-close', e => {
-    e.preventDefault()
-    toggleModal()
-  })
-
-  $.on('click', modalContainer, e => {
-    if (e.target === modalContainer) {
+    $.on('click', $subscribeBtn, e => {
       e.preventDefault()
-      toggleModal()
-    }
-  })
+      queue.pushTask(() => {
+        $subscribeModal.openModal()
+      })
+    })
+  }
 })
