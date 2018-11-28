@@ -13,7 +13,6 @@ const queue = new IdleQueue()
 
 $.ready(() => {
   document.addEventListener('lazyloaded', e => {
-    console.log(e.target)
     objectFitImages(e.target)
   })
 
