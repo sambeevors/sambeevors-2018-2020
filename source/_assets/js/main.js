@@ -31,7 +31,9 @@ $.ready(() => {
   })
 
   $.on('click', modalContainer, e => {
-    e.preventDefault()
-    if (e.target === modalContainer) toggleModal()
+    if (e.target === modalContainer) {
+      e.preventDefault()
+      toggleModal()
+    }
   })
 })
