@@ -26,7 +26,7 @@
             </a>
             <h2 class="my-2 text-4xl">Stay connected for updates</h2>
             <p class="text-grey-dark">Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
-            <form data-netlify="true" class="mt-8" name="Subscribe" method="POST">
+            <form netlify class="mt-8" name="Subscribe" method="POST">
                 <div class="flex items-center mb-4">
                     <label class="text-grey-darker pr-4 w-1/4" for="input-name">Your Name</label>
                     <input type="text" id="input-name" class="w-3/4 rounded-full bg-grey-lighter px-6 py-4 text-grey-darkest" placeholder="John Doe" required name="name">
@@ -36,7 +36,7 @@
                     <input type="email" id="input-email" class="w-3/4 rounded-full bg-grey-lighter px-6 py-4 text-grey-darkest" placeholder="john.doe@example.com" required name="email">
                 </div>
                 <div class="block">
-                    <input type="submit" value="Submit" class="no-underline bg-green hover:bg-green-dark text-white font-serif uppercase tracking-wide font-semibold text-center px-6 py-4 text-sm mx-auto block">
+                    <button type="submit" class="no-underline bg-green hover:bg-green-dark text-white font-serif uppercase tracking-wide font-semibold text-center px-6 py-4 text-sm mx-auto block">Submit</button>
                 </div>
             </form>
         </div>
