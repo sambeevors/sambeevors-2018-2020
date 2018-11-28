@@ -152,7 +152,7 @@ gulp.task('js', () => {
               module: {
                 rules: [
                   {
-                    test: /\.js$/,
+                    test: /\.m?js$/,
                     loader: 'babel-loader'
                   }
                 ]
