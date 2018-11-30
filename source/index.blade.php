@@ -23,7 +23,7 @@
 
     <div class="flex flex-col justify-center max-w-md mx-auto min-h-screen w-full p-4">
 
-        <div class="text-center md:text-left w-full md:max-w-sm rounded-lg bg-purple text-white relative mt-6 md:mt-16 p-8 antialiased bg-hero-circuit-board-purple-light shadow-lg self-start" id="intro">
+        <div class="text-center md:text-left w-full md:max-w-sm rounded-lg bg-purple text-white relative md:mt-16 p-8 antialiased bg-hero-circuit-board-purple-light shadow-lg self-start" id="intro">
             <div class="md:pin-r md:pin-t md:-mr-14 md:-mt-14 relative md:absolute w-32 h-32 mb-4 md:mb-0 mx-auto">
                 {{-- No point lazy loading this one --}}
                 <img src="img/mini-me.jpg" alt="Me!" class="object-fit absolute pin rounded-full">
