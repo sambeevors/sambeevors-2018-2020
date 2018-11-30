@@ -266,8 +266,7 @@ gulp.task('lqip', () => {
           query: 'img.lazyload', // match lazysizes class
           srcAttribute: 'data-src',
           addStyles: true,
-          carryClassList: false, // leave the lazyload class alone
-          classList: 'mb-4'
+          carryClassList: false // leave the lazyload class alone
         })
       )
     )
@@ -320,6 +319,7 @@ const jsTasks = isProduction ? ['js'] : ['js:lint', 'js']
 gulp.task('watch', ['browserSync'], cb => {
   $.watch('source/**/*.blade.php', () => runSequence('build'))
   $.watch(paths.css.watch, () => runSequence(['css'], 'build'))
+  $.watch('tailwind-config.js', () => runSequence(['css'], 'build'))
   $.watch(paths.js.watch, () => runSequence(jsTasks, 'build'))
   $.watch(paths.imagemin.watch, () => runSequence(['imagemin'], 'build'))
   $.watch(paths.svgmin.watch, () => runSequence(['svgmin'], 'build'))

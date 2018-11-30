@@ -64,7 +64,7 @@ let colors = {
 
   'orange-darkest': '#462a16',
   'orange-darker': '#613b1f',
-  'orange-dark': '#de751f',
+  'orange-dark': '#f18126',
   orange: '#f6993f',
   'orange-light': '#faad63',
   'orange-lighter': '#fcd9b6',
@@ -626,7 +626,11 @@ module.exports = {
     '3': '0.75rem',
     '4': '1rem',
     '6': '1.5rem',
-    '8': '2rem'
+    '8': '2rem',
+    '10': '2.5rem',
+    '12': '3rem',
+    '14': '2.5rem',
+    '16': '4rem'
   },
 
   /*
@@ -653,7 +657,11 @@ module.exports = {
     '3': '0.75rem',
     '4': '1rem',
     '6': '1.5rem',
-    '8': '2rem'
+    '8': '2rem',
+    '10': '2.5rem',
+    '12': '3rem',
+    '14': '2.5rem',
+    '16': '4rem'
   },
 
   /*
@@ -679,7 +687,11 @@ module.exports = {
     '3': '0.75rem',
     '4': '1rem',
     '6': '1.5rem',
-    '8': '2rem'
+    '8': '2rem',
+    '10': '2.5rem',
+    '12': '3rem',
+    '14': '2.5rem',
+    '16': '4rem'
   },
 
   /*
@@ -886,6 +898,28 @@ module.exports = {
         '70': 0.7,
         '80': 0.8,
         '90': 0.9
+      }
+    }),
+    require('tailwind-heropatterns')({
+      // as per tailwind docs you can pass variants
+      variants: [],
+
+      // the list of patterns you want to generate a class for
+      // the names must be in kebab-case
+      // an empty array will generate all 87 patterns
+      patterns: [],
+
+      // The foreground colors of the pattern
+      colors: {
+        default: colors.purple,
+        'purple-light': colors['purple-light'],
+        orange: colors.orange
+      },
+
+      // The foreground opacity
+      opacities: {
+        default: '0.3',
+        '100': '1.0'
       }
     })
   ],

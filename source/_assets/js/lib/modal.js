@@ -1,15 +1,22 @@
 import * as $ from 'pumpkin.js'
 
 class Modal {
-  constructor (markup) {
-    this.modal = document.createElement('div')
-    this.modal.style = 'transition: opacity .3s ease-in-out'
-    this.modal.classList = `flex justify-center fixed pin bg-black-70 z-50 items-center opacity-0 pointer-events-none js-modal-container`
-    this.modal.innerHTML = markup
+  constructor (markup, classList) {
+    this.hasMarkup = markup && typeof markup === 'object'
+    if (this.hasMarkup) {
+      this.modal = $.qs(markup.querySelector || 'form')
+    } else {
+      this.modal = document.createElement('div')
+      this.modal.style = 'transition: opacity .3s ease-in-out'
+      this.modal.classList =
+        classList ||
+        'flex justify-center fixed pin bg-black-70 z-50 items-center opacity-0 pointer-events-none js-modal-container'
+      this.modal.innerHTML = markup
+    }
   }
 
   create (cb) {
-    document.body.appendChild(this.modal)
+    if (!this.hasMarkup) document.body.appendChild(this.modal)
 
     $.on('click', this.modal, e => {
       if (e.target === this.modal) {
