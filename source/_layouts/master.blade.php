@@ -64,7 +64,7 @@
 
             @foreach ($hashed_files[0] as $key => $file)
 
-                <link rel="stylesheet" href="{{ $file }}">
+                <link rel="stylesheet" href="/{{ $file }}">
 
             @endforeach
 
@@ -89,6 +89,14 @@
             <meta property="og:locale" content="" />
             <meta property="fb:app_id" content="" /> --}}
 
+            <noscript>
+                <style>
+                    .lqip {
+                        display: none !important;
+                    }
+                </style>
+            </noscript>
+
         </head>
     </head>
     <body class="font-sans leading-normal bg-grey-lighter">
@@ -103,7 +111,7 @@
 
         @foreach ($hashed_files[1] as $key => $file)
 
-            <script type="text/javascript" src="{{ $file }}"></script>
+            <script type="text/javascript" src="/{{ $file }}"></script>
 
         @endforeach
 

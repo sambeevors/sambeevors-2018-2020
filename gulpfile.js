@@ -56,7 +56,7 @@ const paths = {
     dest: './source/img'
   },
   php: {
-    watch: './source/**/*.php'
+    watch: './source/**/*.{php,md}'
   },
   build: {
     watch: `./${outputFolder}/**/*.html`,
@@ -240,8 +240,8 @@ gulp.task('fonts', () => {
 })
 
 const jigsawTask = isLocal
-  ? 'jigsaw build --pretty=false'
-  : './vendor/bin/jigsaw build production --pretty=false'
+  ? 'jigsaw build'
+  : './vendor/bin/jigsaw build production'
 gulp.task('jigsaw', cb => {
   exec(jigsawTask, err => {
     if (err) console.log(err)
