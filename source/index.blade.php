@@ -47,7 +47,7 @@
             <p>Whether you have an equiry, want to get to know me better, or just want to see more pictures of my cat, you can <a class="text-blue-lightest font-semibold" href="mailto:me@sambeevors.com">send me an email</a> or <a class="text-blue-lightest font-semibold | js-subscribe" href="javascript:;">use this form</a> and I'll get back to you as soon as I can!</p>
         </div>
 
-        <div class="text-center md:text-left w-full md:max-w-xs rounded-lg bg-white text-grey-darkest relative mt-6 md:-mt-12 p-8 shadow-lg self-end z-10 md:mr-16 order-4 md:order-5" id="stack">
+        <div class="text-center md:text-left w-full md:max-w-xs rounded-lg bg-white text-grey-darkest relative mt-6 md:-mt-12 p-8 shadow-lg self-end z-10 md:mr-16 order-4 md:order-5" id="source-code">
             <h2 class="mb-2">How it's made</h2>
             <p>This site is entirely open source, you can <a href="https://github.com/sambeevors/sambeevors.com" rel="noopener" target="_blank" class="text-purple no-underline font-semibold">view all of the source code</a> on Github.</p>
         </div>
