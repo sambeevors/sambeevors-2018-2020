@@ -49,7 +49,7 @@
 
         <div class="text-center md:text-left w-full md:max-w-xs rounded-lg bg-white text-grey-darkest relative mt-6 md:-mt-12 p-8 shadow-lg self-end z-10 md:mr-16 order-4 md:order-5" id="stack">
             <h2 class="mb-2">How it's made</h2>
-            <p>This site is entirely open source, you can <a href="https://gist.github.com/sambeevors/d4c2d644a2ffe6b13702e3a0af61d886" rel="noopener" target="_blank" class="text-purple no-underline font-semibold">view all of the source code</a> on Github.</p>
+            <p>This site is entirely open source, you can <a href="https://github.com/sambeevors/sambeevors.com" rel="noopener" target="_blank" class="text-purple no-underline font-semibold">view all of the source code</a> on Github.</p>
         </div>
 
         {{-- https://github.com/sambeevors/sambeevors.com --}}
