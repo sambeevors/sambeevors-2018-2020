@@ -5,6 +5,7 @@
 
     {{-- You can use the head stack to push page specific elements to the head, such as stylesheets --}}
     <link rel="canonical" href="https://sambeevors.com">
+    <meta name="description" content="I'm a Leeds based Front-End / Javascript developer. I create digital experiences that are blazing fast, incredibly accessible and user-oriented.">
 
 @endpush
 
@@ -40,7 +41,8 @@
             <div class="md:pin-r md:pin-t md:-mr-14 md:-mt-14 relative md:absolute w-32 h-32 mb-4 md:mb-0 bg-black rounded-full mx-auto overflow-hidden">
                 @include('_partials.lazyload-image', [
                     'src' => '/img/cat.jpg',
-                    'class' => 'object-fit-cover'
+                    'class' => 'object-fit-cover',
+                    'alt' => 'Pumpkin - my cat'
                 ])
             </div>
             <h2 class="mb-2">Let's talk</h2>

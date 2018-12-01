@@ -15,7 +15,7 @@
                     <input type="email" id="input-email" class="w-3/4 rounded-lg bg-grey-lighter px-6 py-4 text-grey-darkest" placeholder="john.doe@example.com" required name="email">
                 </div>
                 <div class="flex items-center border-b border-grey-lighter pb-6 mb-6">
-                    <label class="text-grey-darker pr-4 w-1/4" for="input-email">Your Message</label>
+                    <label class="text-grey-darker pr-4 w-1/4" for="input-message">Your Message</label>
                     <textarea id="input-message" name="message" class="w-3/4 rounded-lg bg-grey-lighter px-6 py-4 text-grey-darkest" placeholder="I want to see more pictures of your cat!" autocomplete="on" rows="4"></textarea>
                 </div>
                 <div class="block">
