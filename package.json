@@ -63,7 +63,7 @@
     "postcss-sassy-import": "^1.2.3",
     "postcss-scss": "^1.0.4",
     "postcss-url": "^7.3.1",
-    "precss": "^3.1.2",
+    "precss": "^4.0.0",
     "pumpkin.js": "^0.3.0",
     "run-sequence": "^1.2.2",
     "tailwind-heropatterns": "0.0.7",
