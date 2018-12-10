@@ -7,7 +7,7 @@
     <link rel="canonical" href="https://sambeevors.com">
     <meta name="description" content="I'm a Leeds based Front-End / Javascript developer. I create digital experiences that are blazing fast, incredibly accessible and user-oriented.">
 
-@endpush
+@endpush 
 
 @section('title', 'Sam Beevors | Frontend / Javascript Developer from Leeds, UK')
 
@@ -24,6 +24,7 @@
             <h2 class="text-3xl mb-4">Hi there...</h2>
             <p class="font-semibold mb-1">I'm a Leeds based Front-End / Javascript developer.</p>
             <p>I create digital experiences that are blazing fast, incredibly accessible and user-oriented.</p>
+            <p>Sometimes I write, I've recently started <a href="/blog" class="text-white font-semibold">a blog which you can check out</a> if you're interested.</p>
         </div>
 
         <div class="text-center md:text-left w-full md:max-w-xs rounded-lg bg-white text-grey-darkest relative mt-6 md:mt-16 p-8 shadow-lg self-end z-10 md:mr-2 order-2" id="stack">
@@ -46,15 +47,13 @@
                 ])
             </div>
             <h2 class="mb-2">Let's talk</h2>
-            <p>Whether you have an equiry, want to get to know me better, or just want to see more pictures of my cat, you can <a class="text-blue-lightest font-semibold" href="mailto:me@sambeevors.com">send me an email</a> or <a class="text-blue-lightest font-semibold | js-subscribe" href="javascript:;">use this form</a> and I'll get back to you as soon as I can!</p>
+            <p>Whether you have an equiry, want to get to know me better, or just want to see more pictures of my cat, you can <a class="text-white font-semibold" href="mailto:me@sambeevors.com">send me an email</a> or <a class="text-white font-semibold | js-subscribe" href="javascript:;">use this form</a> and I'll get back to you as soon as I can!</p>
         </div>
 
         <div class="text-center md:text-left w-full md:max-w-xs rounded-lg bg-white text-grey-darkest relative mt-6 md:-mt-12 p-8 shadow-lg self-end z-10 md:mr-16 order-4 md:order-5" id="source-code">
             <h2 class="mb-2">How it's made</h2>
             <p>This site is entirely open source, you can <a href="https://github.com/sambeevors/sambeevors.com" rel="noopener" target="_blank" class="text-purple no-underline font-semibold">view all of the source code</a> on Github.</p>
         </div>
-
-        {{-- https://github.com/sambeevors/sambeevors.com --}}
 
     </div>
 

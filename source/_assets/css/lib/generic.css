@@ -1,0 +1,46 @@
+html,
+body {
+  @apply text-black font-sans;
+}
+
+p:not([class]) {
+  @apply mb-4;
+}
+
+.object-fit-cover {
+  object-fit: cover;
+  font-family: 'object-fit: cover;';
+}
+
+@variants responsive {
+  .order-1 {
+    order: 1;
+  }
+
+  .order-2 {
+    order: 2;
+  }
+
+  .order-3 {
+    order: 3;
+  }
+
+  .order-4 {
+    order: 4;
+  }
+
+  .order-5 {
+    order: 5;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}

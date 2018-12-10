@@ -1,0 +1,7 @@
+.markdown-body {
+  @apply leading-loose;
+
+  a {
+    @apply text-purple no-underline font-semibold
+  }
+}
