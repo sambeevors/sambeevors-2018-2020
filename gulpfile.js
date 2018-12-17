@@ -265,6 +265,7 @@ gulp.task('lqip', () => {
           // method: 'primaryColor',
           query: 'img.lazyload', // match lazysizes class
           srcAttribute: 'data-src',
+          addStyles: true,
           carryClassList: false // leave the lazyload class alone
         })
       )

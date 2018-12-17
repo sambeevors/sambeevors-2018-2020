@@ -94,6 +94,11 @@
                     }
                 </style>
             </noscript>
+            <style>
+                .lazyload {
+                    visibility: hidden;
+                }
+            </style>
 
         </head>
     </head>
