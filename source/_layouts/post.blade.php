@@ -115,7 +115,7 @@
         <article class="max-w-lg mx-auto px-4">
 
             <header class="pt-2 pb-4 lg:py-14">
-                <h2 class="text-3xl lg:text-5xl leading-tight mb-4">{{ $page->title }}</h1>
+                <h1 class="text-3xl lg:text-5xl leading-tight mb-4">{{ $page->title }}</h1>
                 <p class="text-xs lg:text-base uppercase text-grey-dark tracking-wide">{{ date('F j, Y', $page->date) }}</p>
             </header>
 
