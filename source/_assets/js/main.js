@@ -7,7 +7,7 @@ import objectFitImages from 'object-fit-images'
 import quicklink from 'quicklink'
 import { IdleQueue } from 'idlize/IdleQueue.mjs'
 import mediumZoom from 'medium-zoom'
-import Modal from './lib/Modal'
+import Modal from './lib/modal'
 import HeightGroup from './lib/HeightGroup'
 
 const queue = new IdleQueue()
