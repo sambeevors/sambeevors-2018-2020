@@ -32,3 +32,14 @@
     transform: translateY(-5px);
   }
 }
+
+.tags span {
+  &::after {
+    display: inline-block;
+    content: ',';
+  }
+
+  &:last-child::after {
+    content: '';
+  }
+}

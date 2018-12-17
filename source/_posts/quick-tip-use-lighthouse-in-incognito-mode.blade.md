@@ -4,6 +4,7 @@ title: 'Quick Tip: Use lighthouse (and PageSpeed insights) in incognito mode'
 featured_image: /img/blog/lighthouse.jpg
 date: 2018-12-17
 section: content
+tags: ['web perforamnce', 'testing']
 ---
 
 I love [Lighthouse](https://developers.google.com/web/tools/lighthouse/). It's a priceless tool in keeping an eye on your websites performance, SEO, and best practices and I have used it ever since it shipped in Chrome. Recently, Google's [PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/) has also started using Lighthouse to record its metrics, which is also a massively popular tool used by developers and SEO analysts alike.

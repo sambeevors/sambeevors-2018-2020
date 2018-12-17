@@ -86,6 +86,7 @@
 
             <link rel="canonical" href="{{ $page->getUrl() }}">
             <meta name="description" content="{!! $page->excerpt(200) !!}">
+            <meta name="keywords" content="@foreach ($page->tags as $tag){{ $tag }},@endforeach">
 
             <noscript>
                 <style>
@@ -121,10 +122,18 @@
 
             <main class="markdown-body">
                 @yield('content')
-                <a href="/blog" class="text-3xl no-underline inline-flex items-center">
+            </main>
+
+            <div class="flex justify-between items-center mt-6">
+                <a href="/blog" class="text-3xl no-underline inline-flex items-center text-purple">
                     &#8592; <span class="pl-4 uppercase text-base font-normal text-grey-dark tracking-wide">back <span class="sr-only">to index</span></span>
                 </a>
-            </main>
+                <p class="uppercase text-xs text-grey tracking-wide text-right hidden md:block tags">Keywords:
+                    @foreach ($page->tags as $tag)
+                        <span class="mx-1 text-xs text-purple uppercase tracking-wide">{{ $tag }}</span>
+                    @endforeach
+                </p>
+            </div>
 
             <footer class="leading-normal mt-6 mt-10 pt-10 text-center text-grey-darker border-t border-grey-light">
                 <figure class="block w-16 h-16 rounded-full mx-auto overflow-hidden mb-3">

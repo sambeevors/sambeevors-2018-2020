@@ -4,6 +4,7 @@ title: What’s more important, true or perceived performance?
 featured_image: /img/blog/perf-tips.jpg
 date: 2018-12-09
 section: content
+tags: ['web perforamnce', 'discussion']
 ---
 
 There are an abundance of terms in web performance these days. Time To Start Render, Time To Interact, First Meaningful Paint, DOM Content Loaded, the list goes on. But what really matters when it comes to having a fast experience? What do these terms even mean?
