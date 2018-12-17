@@ -104,9 +104,10 @@ gulp.task('css', () => {
               /flickity/,
               /^hf-/,
               /editable/,
-              /ex-/,
               /logged-in/,
-              /admin/
+              /admin/,
+              /markdown/,
+              /blockquote/
             ], // Example: Whitelist third party classes (eg. Flickity)
             extractors: [
               {
