@@ -87,6 +87,13 @@
             <link rel="canonical" href="{{ $page->getUrl() }}">
             <meta name="description" content="{!! $page->excerpt(200) !!}">
 
+            <script>
+                var disqus_config = function () {
+                    this.page.url = '{{ $page->getUrl() }}'; 
+                    this.page.identifier = '{{ $page->getFilename() }}';
+                }
+            </script>
+
             <noscript>
                 <style>
                     .lqip {
@@ -121,12 +128,25 @@
 
             <main class="markdown-body">
                 @yield('content')
-                <a href="/blog" class="text-3xl no-underline inline-flex items-center">
-                    &#8592; <span class="pl-4 uppercase text-base font-normal text-grey-dark tracking-wide">back <span class="sr-only">to index</span></span>
-                </a>
             </main>
 
-            <footer class="leading-normal mt-6 mt-10 pt-10 text-center text-grey-darker border-t border-grey-light">
+            <div class="mt-12 shadow-lg overflow-hidden border-t-4 border-purple-light rounded-lg rounded-t-none">
+                <div id="disqus_thread" class="p-8"></div>
+
+                <div class="flex justify-between items-center bg-grey-lightest px-8 py-2">
+                    <a href="/blog" class="text-3xl no-underline inline-flex items-center text-purple-light">
+                        &larr; <span class="pl-4 uppercase text-base font-normal text-grey-dark tracking-wide font-semibold">back <span class="sr-only">to index</span></span>
+                    </a>
+                    @if ($page->getNext())
+                        <a href="{{ $page->getNext()->getPath() }}" class="text-3xl no-underline inline-flex items-center text-purple-light text-right">
+                            <span class="pr-4 uppercase text-base font-normal text-grey-dark tracking-wide font-semibold">next <span class="sr-only">({{ $page->getNext()->title }})</span></span>
+                            &rarr;
+                        </a>
+                    @endif
+                </div>
+            </div>
+
+            <footer class="leading-normal mt-6 pt-10 mt-10 text-center text-grey-darker">
                 <figure class="block w-16 h-16 rounded-full mx-auto overflow-hidden mb-3">
                     @include('_partials.lazyload-image', [
                         'src' => '/img/mini-me.jpg',
