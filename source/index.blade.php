@@ -42,7 +42,7 @@
             <div class="md:pin-r md:pin-t md:-mr-14 md:-mt-14 relative md:absolute w-32 h-32 mb-4 md:mb-0 bg-black rounded-full mx-auto overflow-hidden">
                 @include('_partials.lazyload-image', [
                     'src' => '/img/cat.jpg',
-                    'class' => 'object-fit-cover text-transparent',
+                    'class' => 'object-fit-cover',
                     'alt' => 'Pumpkin - my cat'
                 ])
             </div>

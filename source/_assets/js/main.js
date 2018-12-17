@@ -4,14 +4,23 @@ import 'lazysizes'
 
 import * as $ from 'pumpkin.js'
 import objectFitImages from 'object-fit-images'
+import quicklink from 'quicklink'
 import { IdleQueue } from 'idlize/IdleQueue.mjs'
-import Modal from './lib/modal'
+import mediumZoom from 'medium-zoom'
+import Modal from './lib/Modal'
+import HeightGroup from './lib/HeightGroup'
 
 const queue = new IdleQueue()
 
 $.ready(() => {
   document.addEventListener('lazyloaded', e => {
     objectFitImages(e.target)
+  })
+  ;['.js-post-title', '.js-post'].forEach(qs => {
+    if ($.qs(qs)) {
+      let group = new HeightGroup(qs)
+      group.watchElements()
+    }
   })
 
   let $subscribeModal
@@ -32,4 +41,10 @@ $.ready(() => {
       })
     })
   }
+
+  quicklink()
+  mediumZoom([
+    ...document.querySelectorAll('[data-zoomable]'),
+    ...document.querySelectorAll('.markdown-body img')
+  ])
 })

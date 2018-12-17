@@ -84,6 +84,9 @@
             <meta property="og:image" content="{{ $page->featured_image }}" />
             <meta property="og:locale" content="en_UK" />
 
+            <link rel="canonical" href="{{ $page->getUrl() }}">
+            <meta name="description" content="{!! $page->excerpt(200) !!}">
+
             <noscript>
                 <style>
                     .lqip {
@@ -94,7 +97,7 @@
 
         </head>
     </head>
-    <body class="font-sans leading-normal bg-grey-lighter">
+    <body class="font-sans leading-normal bg-white">
 
         @if ($page->featured_image)
             @include('_partials.lazyload-image', [

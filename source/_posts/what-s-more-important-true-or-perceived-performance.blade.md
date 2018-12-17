@@ -6,11 +6,11 @@ date: 2018-12-09
 section: content
 ---
 
-There are an abundance of terms in web performance these days. Time To Start Render, Time To Interact, First Meaningful Paint, DOM Content Loaded, the list goes on. But what really matters when it comes to having a fast experience? What do these terms even mean? 
+There are an abundance of terms in web performance these days. Time To Start Render, Time To Interact, First Meaningful Paint, DOM Content Loaded, the list goes on. But what really matters when it comes to having a fast experience? What do these terms even mean?
 
 As [web pages grow in size year on year](https://www.keycdn.com/support/the-growth-of-web-page-size), the users' experience is dwindling. Sure, people’s internet speeds are getting faster, but not everyone's, and what about on choppy connections? It feels like developers are increasingly forgetting about the users who already have the toughest time on the web.
 
-When we address this issue, there are a few options we can take; do we cut back on the beautiful images? Do we stop using the wonderful modern frameworks to save on bytes? Do we drop certain features to avoid depending on big polyfills? Or do we take the other route, do we just make it *feel* as though the experience is faster by using things like spinners or loaders, deferring scripts to get *something* out to the user quickly, even if it’s not quite the full experience… yet. The answer, as you may have predicted, is not a simple one, and well - it depends.
+When we address this issue, there are a few options we can take; do we cut back on the beautiful images? Do we stop using the wonderful modern frameworks to save on bytes? Do we drop certain features to avoid depending on big polyfills? Or do we take the other route, do we just make it _feel_ as though the experience is faster by using things like spinners or loaders, deferring scripts to get _something_ out to the user quickly, even if it’s not quite the full experience… yet. The answer, as you may have predicted, is not a simple one, and well - it depends.
 
 A lot of times, we can improve the true performance of a site without impacting user experience. Some things may include critical CSS, deferring off-screen images, making use of next-gen image formats, and ensuring assets are minified. The obvious benefit to this is that these are fairly simple quick-fixes, which boost your site’s performance at no detriment to the user. The downside is these fixes are often either already in place, or only add a very minimal improvement.
 

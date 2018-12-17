@@ -1,11 +1,13 @@
 <?php
 
 return [
-  'production' => false,
-  'site_name' => 'Sam Beevors',
-  'collections' => [
+    'production' => false,
+    'baseUrl' => 'https://sambeevors.com',
+    'site_name' => 'Sam Beevors',
+    'collections' => [
         'posts' => [
             'path' => 'blog/{date|Y/m/d}/{filename}',
+            'sort' => ['-date'],
             'excerpt' => function ($text, $chars = 25) {
                 $text = strip_tags($text);
                 if (strlen($text) <= $chars) return $text;

@@ -2,6 +2,33 @@
   @apply leading-loose;
 
   a {
-    @apply text-purple no-underline font-semibold
+    @apply text-purple no-underline font-semibold;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    @apply leading-normal mb-2 mt-6;
+  }
+
+  blockquote {
+    @apply border-l-4 border-purple pl-4;
+
+    p {
+      @apply text-lg text-grey-darker;
+    }
+  }
+}
+
+.bump-up {
+  transform: translateY(0);
+  transition: 0.2s ease-in-out;
+  will-change: transform, box-shadow;
+
+  &:hover {
+    @apply shadow;
+    transform: translateY(-5px);
   }
 }

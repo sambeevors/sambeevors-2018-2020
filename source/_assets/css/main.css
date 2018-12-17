@@ -37,6 +37,7 @@
  */
 @import 'lib/generic';
 @import 'lib/post';
+@import 'lib/lqip';
 
 /**
  * This injects all of Tailwind's utility classes, generated based on your
@@ -62,39 +63,3 @@
  * @import "utilities/background-patterns";
  * @import "utilities/skew-transforms";
  */
-
-html,
-body {
-  @apply text-black font-sans;
-}
-
-p:not([class]) {
-  @apply mb-4;
-}
-
-.object-fit-cover {
-  object-fit: cover;
-  font-family: 'object-fit: cover;';
-}
-
-@variants responsive {
-  .order-1 {
-    order: 1;
-  }
-
-  .order-2 {
-    order: 2;
-  }
-
-  .order-3 {
-    order: 3;
-  }
-
-  .order-4 {
-    order: 4;
-  }
-
-  .order-5 {
-    order: 5;
-  }
-}
