@@ -315,7 +315,8 @@ module.exports = {
   tracking: {
     tight: '-0.05em',
     normal: '0',
-    wide: '0.1em'
+    wide: '0.1em',
+    megawide: '0.25em'
   },
 
   /*

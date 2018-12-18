@@ -104,6 +104,8 @@
     </head>
     <body class="font-sans leading-normal bg-white">
 
+        @include('_partials.nav')
+
         @if ($page->featured_image)
             @include('_partials.lazyload-image', [
                 'src' => $page->featured_image,

@@ -41,6 +41,31 @@ p:not([class]) {
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0,0,0,0);
+  clip: rect(0, 0, 0, 0);
   border: 0;
+}
+
+.fancy-underline {
+  text-decoration: none;
+  position: relative;
+
+  &::after {
+    content: '';
+    height: 0.1em;
+    width: 100%;
+    left: 0;
+    bottom: -6px;
+    background: currentColor;
+    display: block;
+    position: absolute;
+    opacity: 0.25;
+    transition: 0.2s ease-in-out;
+  }
+
+  &:hover {
+    &::after {
+      bottom: -4px;
+      opacity: 1;
+    }
+  }
 }

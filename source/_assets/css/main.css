@@ -37,6 +37,7 @@
  */
 @import 'lib/generic';
 @import 'lib/post';
+@import 'lib/nav';
 
 /**
  * This injects all of Tailwind's utility classes, generated based on your

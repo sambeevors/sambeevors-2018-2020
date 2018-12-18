@@ -42,6 +42,16 @@ $.ready(() => {
     })
   }
 
+  const burger = $.qs('.js-burger')
+  const nav = $.qs('.js-nav')
+  if (burger) {
+    burger.addEventListener('click', function (e) {
+      e.preventDefault()
+      nav.classList.toggle('-active')
+      burger.classList.toggle('-active')
+    })
+  }
+
   quicklink()
   mediumZoom([
     ...document.querySelectorAll('[data-zoomable]'),
