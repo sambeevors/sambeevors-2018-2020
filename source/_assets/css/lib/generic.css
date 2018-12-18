@@ -73,5 +73,9 @@ p:not([class]) {
 @variants responsive {
   .color-dodge {
     mix-blend-mode: color-dodge;
+
+    .is-safari & {
+      mix-blend-mode: unset;
+    }
   }
 }

@@ -11,6 +11,7 @@ import mediumZoom from 'medium-zoom'
 
 import Modal from './lib/modal'
 import HeightGroup from './lib/HeightGroup'
+import isSafari from './lib/isSafari'
 
 const queue = new IdleQueue()
 
@@ -24,6 +25,8 @@ $.ready(() => {
       group.watchElements()
     }
   })
+
+  if (isSafari()) document.body.classList.add('is-safari')
 
   const $burger = $.qs('.js-burger')
   const $nav = $.qs('.js-nav')
