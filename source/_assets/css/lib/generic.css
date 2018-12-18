@@ -69,3 +69,7 @@ p:not([class]) {
     }
   }
 }
+
+.color-dodge {
+  mix-blend-mode: color-dodge;
+}

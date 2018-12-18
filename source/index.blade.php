@@ -57,6 +57,4 @@
 
     </div>
 
-    @include('_partials.contact-modal')
-
 @endsection
