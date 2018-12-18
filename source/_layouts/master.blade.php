@@ -111,6 +111,8 @@
 
         @include('_partials.footer')
 
+        @include('_partials.contact-modal')
+
         @stack('scripts')
 
         @foreach ($hashed_files[1] as $key => $file)

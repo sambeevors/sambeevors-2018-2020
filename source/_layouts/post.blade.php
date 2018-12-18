@@ -104,10 +104,16 @@
     </head>
     <body class="font-sans leading-normal bg-white">
 
+        @include('_partials.nav', [
+            'color_dodge' => true
+        ])
+
+        <div class="js-nav-bar lg:hidden"><!-- --></div>
+
         @if ($page->featured_image)
             @include('_partials.lazyload-image', [
                 'src' => $page->featured_image,
-                'class' => 'object-fit-cover text-transparent',
+                'class' => 'object-fit-cover text-transparent | js-featured-image',
                 'alt' => $page->title
             ])
         @endif

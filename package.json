@@ -48,6 +48,7 @@
     "idlize": "^0.1.1",
     "imagesloaded": "^4.1.1",
     "install": "^0.12.2",
+    "intersection-observer": "^0.5.1",
     "lazysizes": "^4.1.4",
     "medium-zoom": "^1.0.2",
     "npm": "^6.4.1",
