@@ -54,19 +54,8 @@ $.ready(() => {
     })
   }
 
-  // const checkBurger = () => {
-  //   let imageBottomFromPageTop =
-  //     $featuredImage.getBoundingClientRect().bottom + window.scrollY
-  //   if (imageBottomFromPageTop <= window.scrollY) {
-  //     $burger.classList.remove('color-dodge')
-  //   } else $burger.classList.add('color-dodge')
-  // }
-
-  // const $featuredImage = $.qs('.js-featured-image')
-  // if ($featuredImage && $burger) {
-  //   checkBurger()
-  //   window.addEventListener('scroll', checkBurger)
-  // }
+  const $navBar = new HeightGroup('.js-nav-bar')
+  $navBar.watchElements()
 
   quicklink()
   mediumZoom([

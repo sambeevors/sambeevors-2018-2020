@@ -70,6 +70,8 @@ p:not([class]) {
   }
 }
 
-.color-dodge {
-  mix-blend-mode: color-dodge;
+@variants responsive {
+  .color-dodge {
+    mix-blend-mode: color-dodge;
+  }
 }
