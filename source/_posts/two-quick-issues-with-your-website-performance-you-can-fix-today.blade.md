@@ -4,6 +4,7 @@ title: Two quick issues with your website performance you can fix today
 featured_image: /img/blog/web-perf-2-fixes.jpg
 date: 2018-12-09
 section: content
+tags: ['web perforamnce']
 ---
 
 A lot of the time you desperately want to improve the performance of your site, but you just don't have the time or budget to do so. Here are a couple of quick things you might have missed. Fixing these takes no time at all and can have incredible results.
