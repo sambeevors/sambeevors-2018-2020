@@ -30,6 +30,15 @@ class Modal {
       this.closeModal()
     })
 
+    $.on('keydown', document, e => {
+      if (
+        !this.modal.classList.contains('pointer-events-none') &&
+        !this.modal.classList.contains('opacity-0')
+      ) {
+        if (e.keyCode === 27) this.closeModal()
+      }
+    })
+
     if (cb) cb()
   }
 
