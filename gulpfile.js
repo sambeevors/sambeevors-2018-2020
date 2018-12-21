@@ -6,6 +6,7 @@ const runSequence = require('run-sequence')
 const args = require('yargs').argv
 const exec = require('child_process').exec
 const { transform, lqip } = require('gulp-html-transform')
+const workboxBuild = require('workbox-build')
 
 const $ = require('gulp-load-plugins')({
   pattern: [
@@ -46,6 +47,11 @@ const paths = {
     watch: ['./source/_assets/js/**/*'],
     src: ['./source/_assets/js/main.js'],
     dest: './source/js'
+  },
+  sw: {
+    watch: ['./source/_assets/sw/**/*'],
+    src: './source/_assets/sw/sw.js',
+    dest: `./${outputFolder}/sw.js`
   },
   imagemin: {
     watch: './source/_assets/img/**/*.{jpg,png,gif}',
@@ -224,13 +230,28 @@ gulp.task('imagemin', () => {
 /*
   Build Task:
 
+  * Generates service worker
   * Runs Jigsaw, compiles Blade files into static HTML files
   * Adds custom font files to the local build
   * Tidies the outputted HTML
 
 */
 gulp.task('build', cb => {
-  runSequence('jigsaw', 'fonts', 'lqip', 'html', cb)
+  runSequence('jigsaw', 'fonts', 'lqip', 'html', 'service-worker', cb)
+})
+
+gulp.task('service-worker', () => {
+  return workboxBuild
+    .injectManifest({
+      swSrc: paths.sw.src,
+      swDest: paths.sw.dest,
+      globDirectory: outputFolder,
+      globPatterns: ['**/*.{js,css,html,png,jpg}']
+    })
+    .then(({ count, size, warnings }) => {
+      warnings.forEach(console.warn)
+      console.log(`${count} files will be precached, totaling ${size} bytes.`)
+    })
 })
 
 const reload = isLocal ? $.browserSync.reload : $.util.noop
@@ -322,6 +343,7 @@ gulp.task('watch', ['browserSync'], cb => {
   $.watch(paths.css.watch, () => runSequence(['css'], 'build'))
   $.watch('tailwind-config.js', () => runSequence(['css'], 'build'))
   $.watch(paths.js.watch, () => runSequence(jsTasks, 'build'))
+  $.watch(paths.sw.watch, () => runSequence('build'))
   $.watch(paths.imagemin.watch, () => runSequence(['imagemin'], 'build'))
   $.watch(paths.svgmin.watch, () => runSequence(['svgmin'], 'build'))
   $.watch(paths.php.watch, () => runSequence(['build']))
