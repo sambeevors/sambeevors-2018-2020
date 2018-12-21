@@ -35,7 +35,7 @@
     "gulp-html-transform": "^2.3.1",
     "gulp-htmlmin": "^5.0.1",
     "gulp-htmltidy": "^0.2.2",
-    "gulp-imagemin": "^3.1.1",
+    "gulp-imagemin": "^4.1.0",
     "gulp-load-plugins": "^1.4.0",
     "gulp-plumber": "^1.1.0",
     "gulp-postcss": "^6.4.0",
