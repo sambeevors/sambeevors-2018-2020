@@ -6,6 +6,7 @@ const runSequence = require('run-sequence')
 const args = require('yargs').argv
 const exec = require('child_process').exec
 const { transform, lqip } = require('gulp-html-transform')
+const workboxBuild = require('workbox-build')
 
 const $ = require('gulp-load-plugins')({
   pattern: [
@@ -44,8 +45,13 @@ const paths = {
   },
   js: {
     watch: ['./source/_assets/js/**/*'],
-    src: ['./source/_assets/js/main.js'],
+    src: ['./source/_assets/js/main.js', './source/_assets/js/sw.js'],
     dest: './source/js'
+  },
+  sw: {
+    watch: ['./source/_assets/sw/**/*'],
+    src: './source/_assets/sw/sw.js',
+    dest: `./${outputFolder}/sw.js`
   },
   imagemin: {
     watch: './source/_assets/img/**/*.{jpg,png,gif}',
@@ -85,16 +91,15 @@ const postCssPlugins = [
 
 isProduction && postCssPlugins.push($.cssnano())
 
-gulp.task('css', () => {
-  return (
-    gulp
-      .src(paths.css.src)
-      .pipe($.sourcemaps.init())
-      .pipe($.postcss(postCssPlugins, { parser: $.postcssScss }))
-      .pipe(
-        isLocal
-          ? $.util.noop()
-          : $.purgecss({
+gulp.task('css', () =>
+  gulp
+    .src(paths.css.src)
+    .pipe($.sourcemaps.init())
+    .pipe($.postcss(postCssPlugins, { parser: $.postcssScss }))
+    .pipe(
+      isLocal
+        ? $.util.noop()
+        : $.purgecss({
             content: [
               './source/**/*.blade.php',
               './source/_assets/js/**/*.js',
@@ -112,25 +117,24 @@ gulp.task('css', () => {
             extractors: [
               {
                 extractor: class {
-                  static extract (content) {
+                  static extract(content) {
                     return content.match(/[A-z0-9-:/]+/g) || []
                   }
-                  },
+                },
                 extensions: ['php', 'js', 'svg']
               }
             ]
           })
-      )
-      .pipe($.sourcemaps.write('./'))
-      .pipe(gulp.dest(paths.css.dest))
-      // reload browserSync if we're not on production
-      .pipe(
-        $.browserSync
-          ? $.browserSync.stream({ match: '**/*.css' })
-          : $.util.noop()
-      )
-  )
-})
+    )
+    .pipe($.sourcemaps.write('./'))
+    .pipe(gulp.dest(paths.css.dest))
+    // reload browserSync if we're not on production
+    .pipe(
+      $.browserSync
+        ? $.browserSync.stream({ match: '**/*.css' })
+        : $.util.noop()
+    )
+)
 
 /*
   JS Task:
@@ -161,13 +165,13 @@ gulp.task('js', () => {
               plugins: isLocal
                 ? []
                 : [
-                  new $.webpack.optimize.UglifyJsPlugin({
-                    sourceMap: true,
-                    compress: {
-                      warnings: false
-                    }
-                  })
-                ],
+                    new $.webpack.optimize.UglifyJsPlugin({
+                      sourceMap: true,
+                      compress: {
+                        warnings: false
+                      }
+                    })
+                  ],
               output: {
                 filename: item.split('/').pop()
               }
@@ -181,13 +185,13 @@ gulp.task('js', () => {
   return es.merge(streams).on('end', $.browserSync.reload)
 })
 
-gulp.task('js:lint', () => {
-  return gulp
+gulp.task('js:lint', () =>
+  gulp
     .src(paths.js.watch)
     .pipe($.plumber())
     .pipe($.eslint())
     .pipe($.eslint.format())
-})
+)
 
 /*
   Image Task:
@@ -199,16 +203,16 @@ gulp.task('images', cb => {
   runSequence(['svgmin', 'imagemin'], cb)
 })
 
-gulp.task('svgmin', () => {
-  return gulp
+gulp.task('svgmin', () =>
+  gulp
     .src(paths.svgmin.watch)
     .pipe($.plumber())
     .pipe($.svgmin())
     .pipe(gulp.dest(paths.svgmin.dest))
-})
+)
 
-gulp.task('imagemin', () => {
-  return gulp
+gulp.task('imagemin', () =>
+  gulp
     .src(paths.imagemin.watch)
     .pipe($.newer(paths.imagemin.dest))
     .pipe(
@@ -219,26 +223,35 @@ gulp.task('imagemin', () => {
       })
     )
     .pipe(gulp.dest(paths.imagemin.dest))
-})
+)
 
 /*
   Build Task:
 
+  * Generates service worker
   * Runs Jigsaw, compiles Blade files into static HTML files
   * Adds custom font files to the local build
   * Tidies the outputted HTML
 
 */
-gulp.task('build', cb => {
-  runSequence('jigsaw', 'fonts', 'lqip', 'html', cb)
-})
+gulp.task('build', cb =>
+  runSequence(
+    'jigsaw',
+    'fonts',
+    'lqip',
+    'html',
+    'service-worker',
+    'minify-sw',
+    cb
+  )
+)
 
 const reload = isLocal ? $.browserSync.reload : $.util.noop
-gulp.task('fonts', () => {
-  return gulp
+gulp.task('fonts', () =>
+  gulp
     .src('./source/_assets/fonts/**/*.{woff,woff2,eot,otf,ttf}')
     .pipe(gulp.dest(`${paths.build.dest}/fonts`))
-})
+)
 
 const jigsawTask = isLocal
   ? 'jigsaw build'
@@ -256,8 +269,8 @@ gulp.task('jigsaw', cb => {
   })
 })
 
-gulp.task('lqip', () => {
-  return gulp
+gulp.task('lqip', () =>
+  gulp
     .src(paths.build.watch)
     .pipe(
       transform(
@@ -272,31 +285,55 @@ gulp.task('lqip', () => {
       )
     )
     .pipe(gulp.dest(paths.build.dest))
-})
+)
 
-gulp.task('html', () => {
-  return gulp
+gulp.task('html', () =>
+  gulp
     .src(paths.build.watch)
     .pipe(
       isProduction
         ? $.htmlmin({
-          collapseWhitespace: true,
-          minifyCSS: true,
-          minifyJS: true
-        })
+            collapseWhitespace: true,
+            minifyCSS: true,
+            minifyJS: true
+          })
         : $.htmltidy({
-          doctype: 'html5',
-          hideComments: false,
-          indent: true,
-          indentWithTabs: true,
-          wrap: false,
-          dropEmptyElement: false,
-          breakBeforeBr: true,
-          mergeSpans: false
-        })
+            doctype: 'html5',
+            hideComments: false,
+            indent: true,
+            indentWithTabs: true,
+            wrap: false,
+            dropEmptyElement: false,
+            breakBeforeBr: true,
+            mergeSpans: false
+          })
     )
     .pipe(gulp.dest(paths.build.dest))
-})
+)
+
+gulp.task('service-worker', () =>
+  workboxBuild
+    .injectManifest({
+      swSrc: paths.sw.src,
+      swDest: paths.sw.dest,
+      globDirectory: outputFolder,
+      globPatterns: ['**/*.{js,css,html,png,jpg}']
+    })
+    .then(({ count, size, warnings }) => {
+      warnings.forEach(console.warn)
+      console.log(`${count} files will be precached, totaling ${size} bytes.`)
+    })
+)
+
+gulp.task('minify-sw', () =>
+  gulp
+    .src(paths.sw.dest)
+    .pipe($.uglify())
+    .on('error', function(err) {
+      $.util.log($.util.colors.red('[Error]'), err.toString())
+    })
+    .pipe(gulp.dest(outputFolder))
+)
 
 gulp.task('browserSync', () => {
   $.browserSync.init({
@@ -325,6 +362,7 @@ gulp.task('watch', ['browserSync'], cb => {
   $.watch(paths.imagemin.watch, () => runSequence(['imagemin'], 'build'))
   $.watch(paths.svgmin.watch, () => runSequence(['svgmin'], 'build'))
   $.watch(paths.php.watch, () => runSequence(['build']))
+  $.watch(paths.sw.watch, () => runSequence(['build']))
 })
 
 gulp.task('deploy', cb => {

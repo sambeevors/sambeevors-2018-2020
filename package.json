@@ -29,6 +29,7 @@
     "dotenv": "^6.2.0",
     "event-stream": "3.3.4",
     "gulp": "^3.9.1",
+    "gulp-clean": "^0.4.0",
     "gulp-connect": "^5.7.0",
     "gulp-exec": "^3.0.2",
     "gulp-html-transform": "^2.3.1",
@@ -77,6 +78,8 @@
     "vinyl-source-stream": "^2.0.0",
     "webpack": "^2.2.0",
     "webpack-stream": "^3.2.0",
+    "workbox-build": "^3.6.3",
+    "workbox-sw": "^3.6.3",
     "yargs": "^6.5.0"
   }
 }
