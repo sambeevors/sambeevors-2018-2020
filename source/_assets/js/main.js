@@ -38,7 +38,6 @@ $.ready(() => {
     })
 
     document.addEventListener('keydown', function (e) {
-      console.log(e)
       if (e.key === 'Escape' && $nav.classList.contains('-active')) {
         $nav.classList.remove('-active')
         $burger.classList.remove('-active')
