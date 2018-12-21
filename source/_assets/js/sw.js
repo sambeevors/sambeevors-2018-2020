@@ -1,6 +1,4 @@
-importScripts(
-  'https://storage.googleapis.com/workbox-cdn/releases/3.6.1/workbox-sw.js'
-)
+import workbox from 'workbox-sw'
 
 if (workbox) {
   workbox.routing.registerRoute(

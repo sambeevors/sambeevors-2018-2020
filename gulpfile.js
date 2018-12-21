@@ -45,12 +45,11 @@ const paths = {
   },
   js: {
     watch: ['./source/_assets/js/**/*'],
-    src: ['./source/_assets/js/main.js'],
+    src: ['./source/_assets/js/main.js', './source/_assets/js/sw.js'],
     dest: './source/js'
   },
   sw: {
-    watch: ['./source/_assets/sw/**/*'],
-    src: './source/_assets/sw/sw.js',
+    src: './source/js/sw.js',
     dest: `./${outputFolder}/sw.js`
   },
   imagemin: {
@@ -91,52 +90,50 @@ const postCssPlugins = [
 
 isProduction && postCssPlugins.push($.cssnano())
 
-gulp.task('css', () => {
-  return (
-    gulp
-      .src(paths.css.src)
-      .pipe($.sourcemaps.init())
-      .pipe($.postcss(postCssPlugins, { parser: $.postcssScss }))
-      .pipe(
-        isLocal
-          ? $.util.noop()
-          : $.purgecss({
-            content: [
-              './source/**/*.blade.php',
-              './source/_assets/js/**/*.js',
-              './source/_assets/img/**/*.svg'
-            ],
-            whitelistPatterns: [
-              /flickity/,
-              /^hf-/,
-              /editable/,
-              /logged-in/,
-              /admin/,
-              /markdown/,
-              /blockquote/
-            ], // Example: Whitelist third party classes (eg. Flickity)
-            extractors: [
-              {
-                extractor: class {
-                  static extract (content) {
-                    return content.match(/[A-z0-9-:/]+/g) || []
-                  }
-                  },
-                extensions: ['php', 'js', 'svg']
-              }
-            ]
-          })
-      )
-      .pipe($.sourcemaps.write('./'))
-      .pipe(gulp.dest(paths.css.dest))
-      // reload browserSync if we're not on production
-      .pipe(
-        $.browserSync
-          ? $.browserSync.stream({ match: '**/*.css' })
-          : $.util.noop()
-      )
-  )
-})
+gulp.task('css', () =>
+  gulp
+    .src(paths.css.src)
+    .pipe($.sourcemaps.init())
+    .pipe($.postcss(postCssPlugins, { parser: $.postcssScss }))
+    .pipe(
+      isLocal
+        ? $.util.noop()
+        : $.purgecss({
+          content: [
+            './source/**/*.blade.php',
+            './source/_assets/js/**/*.js',
+            './source/_assets/img/**/*.svg'
+          ],
+          whitelistPatterns: [
+            /flickity/,
+            /^hf-/,
+            /editable/,
+            /logged-in/,
+            /admin/,
+            /markdown/,
+            /blockquote/
+          ], // Example: Whitelist third party classes (eg. Flickity)
+          extractors: [
+            {
+              extractor: class {
+                static extract (content) {
+                  return content.match(/[A-z0-9-:/]+/g) || []
+                }
+                },
+              extensions: ['php', 'js', 'svg']
+            }
+          ]
+        })
+    )
+    .pipe($.sourcemaps.write('./'))
+    .pipe(gulp.dest(paths.css.dest))
+    // reload browserSync if we're not on production
+    .pipe(
+      $.browserSync
+        ? $.browserSync.stream({ match: '**/*.css' })
+        : $.util.noop()
+    )
+)
 
 /*
   JS Task:
@@ -187,13 +184,13 @@ gulp.task('js', () => {
   return es.merge(streams).on('end', $.browserSync.reload)
 })
 
-gulp.task('js:lint', () => {
-  return gulp
+gulp.task('js:lint', () =>
+  gulp
     .src(paths.js.watch)
     .pipe($.plumber())
     .pipe($.eslint())
     .pipe($.eslint.format())
-})
+)
 
 /*
   Image Task:
@@ -205,16 +202,16 @@ gulp.task('images', cb => {
   runSequence(['svgmin', 'imagemin'], cb)
 })
 
-gulp.task('svgmin', () => {
-  return gulp
+gulp.task('svgmin', () =>
+  gulp
     .src(paths.svgmin.watch)
     .pipe($.plumber())
     .pipe($.svgmin())
     .pipe(gulp.dest(paths.svgmin.dest))
-})
+)
 
-gulp.task('imagemin', () => {
-  return gulp
+gulp.task('imagemin', () =>
+  gulp
     .src(paths.imagemin.watch)
     .pipe($.newer(paths.imagemin.dest))
     .pipe(
@@ -225,7 +222,7 @@ gulp.task('imagemin', () => {
       })
     )
     .pipe(gulp.dest(paths.imagemin.dest))
-})
+)
 
 /*
   Build Task:
@@ -236,30 +233,29 @@ gulp.task('imagemin', () => {
   * Tidies the outputted HTML
 
 */
-gulp.task('build', cb => {
-  runSequence('jigsaw', 'fonts', 'lqip', 'html', 'service-worker', cb)
-})
+gulp.task('build', cb =>
+  runSequence(
+    'jigsaw',
+    'fonts',
+    'lqip',
+    'html',
+    'service-worker',
+    'minify-sw',
+    'clean-sw',
+    cb
+  )
+)
 
-gulp.task('service-worker', () => {
-  return workboxBuild
-    .injectManifest({
-      swSrc: paths.sw.src,
-      swDest: paths.sw.dest,
-      globDirectory: outputFolder,
-      globPatterns: ['**/*.{js,css,html,png,jpg}']
-    })
-    .then(({ count, size, warnings }) => {
-      warnings.forEach(console.warn)
-      console.log(`${count} files will be precached, totaling ${size} bytes.`)
-    })
-})
+gulp.task('clean-sw', () =>
+  gulp.src(`${outputFolder}/js/sw.*`, { read: false }).pipe($.clean())
+)
 
 const reload = isLocal ? $.browserSync.reload : $.util.noop
-gulp.task('fonts', () => {
-  return gulp
+gulp.task('fonts', () =>
+  gulp
     .src('./source/_assets/fonts/**/*.{woff,woff2,eot,otf,ttf}')
     .pipe(gulp.dest(`${paths.build.dest}/fonts`))
-})
+)
 
 const jigsawTask = isLocal
   ? 'jigsaw build'
@@ -277,8 +273,8 @@ gulp.task('jigsaw', cb => {
   })
 })
 
-gulp.task('lqip', () => {
-  return gulp
+gulp.task('lqip', () =>
+  gulp
     .src(paths.build.watch)
     .pipe(
       transform(
@@ -293,10 +289,10 @@ gulp.task('lqip', () => {
       )
     )
     .pipe(gulp.dest(paths.build.dest))
-})
+)
 
-gulp.task('html', () => {
-  return gulp
+gulp.task('html', () =>
+  gulp
     .src(paths.build.watch)
     .pipe(
       isProduction
@@ -317,7 +313,28 @@ gulp.task('html', () => {
         })
     )
     .pipe(gulp.dest(paths.build.dest))
-})
+)
+
+gulp.task('service-worker', () =>
+  workboxBuild
+    .injectManifest({
+      swSrc: paths.sw.src,
+      swDest: paths.sw.dest,
+      globDirectory: outputFolder,
+      globPatterns: ['**/*.{js,css,html,png,jpg}']
+    })
+    .then(({ count, size, warnings }) => {
+      warnings.forEach(console.warn)
+      console.log(`${count} files will be precached, totaling ${size} bytes.`)
+    })
+)
+
+gulp.task('minify-sw', () =>
+  gulp
+    .src(paths.sw.dest)
+    .pipe($.uglify())
+    .pipe(gulp.dest(outputFolder))
+)
 
 gulp.task('browserSync', () => {
   $.browserSync.init({
@@ -343,7 +360,6 @@ gulp.task('watch', ['browserSync'], cb => {
   $.watch(paths.css.watch, () => runSequence(['css'], 'build'))
   $.watch('tailwind-config.js', () => runSequence(['css'], 'build'))
   $.watch(paths.js.watch, () => runSequence(jsTasks, 'build'))
-  $.watch(paths.sw.watch, () => runSequence('build'))
   $.watch(paths.imagemin.watch, () => runSequence(['imagemin'], 'build'))
   $.watch(paths.svgmin.watch, () => runSequence(['svgmin'], 'build'))
   $.watch(paths.php.watch, () => runSequence(['build']))
