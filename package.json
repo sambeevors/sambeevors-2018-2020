@@ -44,7 +44,7 @@
     "gulp-sass": "^3.0.0",
     "gulp-sourcemaps": "^1.9.1",
     "gulp-svgmin": "^2.1.0",
-    "gulp-uglify": "^2.0.0",
+    "gulp-uglify": "^3.0.1",
     "gulp-util": "^3.0.7",
     "idlize": "^0.1.1",
     "imagesloaded": "^4.1.1",
