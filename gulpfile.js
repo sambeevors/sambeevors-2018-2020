@@ -45,12 +45,11 @@ const paths = {
   },
   js: {
     watch: ['./source/_assets/js/**/*'],
-    src: ['./source/_assets/js/main.js'],
+    src: ['./source/_assets/js/main.js', './source/_assets/js/sw.js'],
     dest: './source/js'
   },
   sw: {
-    watch: ['./source/_assets/sw/**/*'],
-    src: './source/_assets/sw/sw.js',
+    src: './source/js/sw.js',
     dest: `./${outputFolder}/sw.js`
   },
   imagemin: {
@@ -343,7 +342,6 @@ gulp.task('watch', ['browserSync'], cb => {
   $.watch(paths.css.watch, () => runSequence(['css'], 'build'))
   $.watch('tailwind-config.js', () => runSequence(['css'], 'build'))
   $.watch(paths.js.watch, () => runSequence(jsTasks, 'build'))
-  $.watch(paths.sw.watch, () => runSequence('build'))
   $.watch(paths.imagemin.watch, () => runSequence(['imagemin'], 'build'))
   $.watch(paths.svgmin.watch, () => runSequence(['svgmin'], 'build'))
   $.watch(paths.php.watch, () => runSequence(['build']))
