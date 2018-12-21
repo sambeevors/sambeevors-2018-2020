@@ -90,7 +90,7 @@ const postCssPlugins = [
 
 isProduction && postCssPlugins.push($.cssnano())
 
-gulp.task('css', () => (
+gulp.task('css', () =>
   gulp
     .src(paths.css.src)
     .pipe($.sourcemaps.init())
@@ -116,10 +116,10 @@ gulp.task('css', () => (
           extractors: [
             {
               extractor: class {
-                static extract(content) {
+                static extract (content) {
                   return content.match(/[A-z0-9-:/]+/g) || []
                 }
-              },
+                },
               extensions: ['php', 'js', 'svg']
             }
           ]
@@ -134,7 +134,6 @@ gulp.task('css', () => (
         : $.util.noop()
     )
 )
-})
 
 /*
   JS Task:
@@ -185,12 +184,13 @@ gulp.task('js', () => {
   return es.merge(streams).on('end', $.browserSync.reload)
 })
 
-gulp.task('js:lint', () => gulp
-  .src(paths.js.watch)
-  .pipe($.plumber())
-  .pipe($.eslint())
-  .pipe($.eslint.format())
-})
+gulp.task('js:lint', () =>
+  gulp
+    .src(paths.js.watch)
+    .pipe($.plumber())
+    .pipe($.eslint())
+    .pipe($.eslint.format())
+)
 
 /*
   Image Task:
@@ -202,25 +202,27 @@ gulp.task('images', cb => {
   runSequence(['svgmin', 'imagemin'], cb)
 })
 
-gulp.task('svgmin', () => gulp
-  .src(paths.svgmin.watch)
-  .pipe($.plumber())
-  .pipe($.svgmin())
-  .pipe(gulp.dest(paths.svgmin.dest))
-})
+gulp.task('svgmin', () =>
+  gulp
+    .src(paths.svgmin.watch)
+    .pipe($.plumber())
+    .pipe($.svgmin())
+    .pipe(gulp.dest(paths.svgmin.dest))
+)
 
-gulp.task('imagemin', () => gulp
-  .src(paths.imagemin.watch)
-  .pipe($.newer(paths.imagemin.dest))
-  .pipe(
-    $.imagemin({
-      optimizationLevel: 7,
-      interlaced: true,
-      progressive: true
-    })
-  )
-  .pipe(gulp.dest(paths.imagemin.dest))
-})
+gulp.task('imagemin', () =>
+  gulp
+    .src(paths.imagemin.watch)
+    .pipe($.newer(paths.imagemin.dest))
+    .pipe(
+      $.imagemin({
+        optimizationLevel: 7,
+        interlaced: true,
+        progressive: true
+      })
+    )
+    .pipe(gulp.dest(paths.imagemin.dest))
+)
 
 /*
   Build Task:
@@ -231,21 +233,17 @@ gulp.task('imagemin', () => gulp
   * Tidies the outputted HTML
 
 */
-gulp.task('build', cb => {
-  runSequence('jigsaw', 'fonts', 'lqip', 'html', 'service-worker', cb)
-})
-
-gulp.task('service-worker', ['clean-sw'], () => workboxBuild
-  .injectManifest({
-    swSrc: paths.sw.src,
-    swDest: paths.sw.dest,
-    globDirectory: outputFolder,
-    globPatterns: ['**/*.{js,css,html,png,jpg}']
-  })
-  .then(({ count, size, warnings }) => {
-    warnings.forEach(console.warn)
-    console.log(`${count} files will be precached, totaling ${size} bytes.`)
-  })
+gulp.task('build', cb =>
+  runSequence(
+    'jigsaw',
+    'fonts',
+    'lqip',
+    'html',
+    'service-worker',
+    'minify-sw',
+    'clean-sw',
+    cb
+  )
 )
 
 gulp.task('clean-sw', () =>
@@ -253,9 +251,10 @@ gulp.task('clean-sw', () =>
 )
 
 const reload = isLocal ? $.browserSync.reload : $.util.noop
-gulp.task('fonts', () => gulp
-  .src('./source/_assets/fonts/**/*.{woff,woff2,eot,otf,ttf}')
-  .pipe(gulp.dest(`${paths.build.dest}/fonts`))
+gulp.task('fonts', () =>
+  gulp
+    .src('./source/_assets/fonts/**/*.{woff,woff2,eot,otf,ttf}')
+    .pipe(gulp.dest(`${paths.build.dest}/fonts`))
 )
 
 const jigsawTask = isLocal
@@ -274,44 +273,67 @@ gulp.task('jigsaw', cb => {
   })
 })
 
-gulp.task('lqip', () => gulp
-  .src(paths.build.watch)
-  .pipe(
-    transform(
-      lqip({
-        base: `${__dirname}/${outputFolder}`,
-        // method: 'primaryColor',
-        query: 'img.lazyload', // match lazysizes class
-        srcAttribute: 'data-src',
-        addStyles: true,
-        carryClassList: false // leave the lazyload class alone
-      })
+gulp.task('lqip', () =>
+  gulp
+    .src(paths.build.watch)
+    .pipe(
+      transform(
+        lqip({
+          base: `${__dirname}/${outputFolder}`,
+          // method: 'primaryColor',
+          query: 'img.lazyload', // match lazysizes class
+          srcAttribute: 'data-src',
+          addStyles: true,
+          carryClassList: false // leave the lazyload class alone
+        })
+      )
     )
-  )
-  .pipe(gulp.dest(paths.build.dest))
+    .pipe(gulp.dest(paths.build.dest))
 )
 
-gulp.task('html', () => gulp
-  .src(paths.build.watch)
-  .pipe(
-    isProduction
-      ? $.htmlmin({
-        collapseWhitespace: true,
-        minifyCSS: true,
-        minifyJS: true
-      })
-      : $.htmltidy({
-        doctype: 'html5',
-        hideComments: false,
-        indent: true,
-        indentWithTabs: true,
-        wrap: false,
-        dropEmptyElement: false,
-        breakBeforeBr: true,
-        mergeSpans: false
-      })
-  )
-  .pipe(gulp.dest(paths.build.dest))
+gulp.task('html', () =>
+  gulp
+    .src(paths.build.watch)
+    .pipe(
+      isProduction
+        ? $.htmlmin({
+          collapseWhitespace: true,
+          minifyCSS: true,
+          minifyJS: true
+        })
+        : $.htmltidy({
+          doctype: 'html5',
+          hideComments: false,
+          indent: true,
+          indentWithTabs: true,
+          wrap: false,
+          dropEmptyElement: false,
+          breakBeforeBr: true,
+          mergeSpans: false
+        })
+    )
+    .pipe(gulp.dest(paths.build.dest))
+)
+
+gulp.task('service-worker', () =>
+  workboxBuild
+    .injectManifest({
+      swSrc: paths.sw.src,
+      swDest: paths.sw.dest,
+      globDirectory: outputFolder,
+      globPatterns: ['**/*.{js,css,html,png,jpg}']
+    })
+    .then(({ count, size, warnings }) => {
+      warnings.forEach(console.warn)
+      console.log(`${count} files will be precached, totaling ${size} bytes.`)
+    })
+)
+
+gulp.task('minify-sw', () =>
+  gulp
+    .src(paths.sw.dest)
+    .pipe($.uglify())
+    .pipe(gulp.dest(outputFolder))
 )
 
 gulp.task('browserSync', () => {
