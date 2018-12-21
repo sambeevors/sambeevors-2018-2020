@@ -1,4 +1,6 @@
-import workbox from 'workbox-sw'
+importScripts(
+  'https://storage.googleapis.com/workbox-cdn/releases/3.6.1/workbox-sw.js'
+)
 
 if (workbox) {
   workbox.routing.registerRoute(
@@ -36,5 +38,5 @@ if (workbox) {
 
   workbox.precaching.precacheAndRoute([])
 } else {
-  console.log(`Boo! Workbox didn't load 😬`)
+  console.warn('Workbox did not successfully initialize.')
 }

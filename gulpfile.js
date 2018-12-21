@@ -49,7 +49,8 @@ const paths = {
     dest: './source/js'
   },
   sw: {
-    src: './source/js/sw.js',
+    watch: ['./source/_assets/sw/**/*'],
+    src: './source/_assets/sw/sw.js',
     dest: `./${outputFolder}/sw.js`
   },
   imagemin: {
@@ -99,31 +100,31 @@ gulp.task('css', () =>
       isLocal
         ? $.util.noop()
         : $.purgecss({
-          content: [
-            './source/**/*.blade.php',
-            './source/_assets/js/**/*.js',
-            './source/_assets/img/**/*.svg'
-          ],
-          whitelistPatterns: [
-            /flickity/,
-            /^hf-/,
-            /editable/,
-            /logged-in/,
-            /admin/,
-            /markdown/,
-            /blockquote/
-          ], // Example: Whitelist third party classes (eg. Flickity)
-          extractors: [
-            {
-              extractor: class {
-                static extract (content) {
-                  return content.match(/[A-z0-9-:/]+/g) || []
-                }
+            content: [
+              './source/**/*.blade.php',
+              './source/_assets/js/**/*.js',
+              './source/_assets/img/**/*.svg'
+            ],
+            whitelistPatterns: [
+              /flickity/,
+              /^hf-/,
+              /editable/,
+              /logged-in/,
+              /admin/,
+              /markdown/,
+              /blockquote/
+            ], // Example: Whitelist third party classes (eg. Flickity)
+            extractors: [
+              {
+                extractor: class {
+                  static extract(content) {
+                    return content.match(/[A-z0-9-:/]+/g) || []
+                  }
                 },
-              extensions: ['php', 'js', 'svg']
-            }
-          ]
-        })
+                extensions: ['php', 'js', 'svg']
+              }
+            ]
+          })
     )
     .pipe($.sourcemaps.write('./'))
     .pipe(gulp.dest(paths.css.dest))
@@ -164,13 +165,13 @@ gulp.task('js', () => {
               plugins: isLocal
                 ? []
                 : [
-                  new $.webpack.optimize.UglifyJsPlugin({
-                    sourceMap: true,
-                    compress: {
-                      warnings: false
-                    }
-                  })
-                ],
+                    new $.webpack.optimize.UglifyJsPlugin({
+                      sourceMap: true,
+                      compress: {
+                        warnings: false
+                      }
+                    })
+                  ],
               output: {
                 filename: item.split('/').pop()
               }
@@ -241,13 +242,8 @@ gulp.task('build', cb =>
     'html',
     'service-worker',
     'minify-sw',
-    'clean-sw',
     cb
   )
-)
-
-gulp.task('clean-sw', () =>
-  gulp.src(`${outputFolder}/js/sw.*`, { read: false }).pipe($.clean())
 )
 
 const reload = isLocal ? $.browserSync.reload : $.util.noop
@@ -297,20 +293,20 @@ gulp.task('html', () =>
     .pipe(
       isProduction
         ? $.htmlmin({
-          collapseWhitespace: true,
-          minifyCSS: true,
-          minifyJS: true
-        })
+            collapseWhitespace: true,
+            minifyCSS: true,
+            minifyJS: true
+          })
         : $.htmltidy({
-          doctype: 'html5',
-          hideComments: false,
-          indent: true,
-          indentWithTabs: true,
-          wrap: false,
-          dropEmptyElement: false,
-          breakBeforeBr: true,
-          mergeSpans: false
-        })
+            doctype: 'html5',
+            hideComments: false,
+            indent: true,
+            indentWithTabs: true,
+            wrap: false,
+            dropEmptyElement: false,
+            breakBeforeBr: true,
+            mergeSpans: false
+          })
     )
     .pipe(gulp.dest(paths.build.dest))
 )
@@ -333,6 +329,9 @@ gulp.task('minify-sw', () =>
   gulp
     .src(paths.sw.dest)
     .pipe($.uglify())
+    .on('error', function(err) {
+      $.util.log($.util.colors.red('[Error]'), err.toString())
+    })
     .pipe(gulp.dest(outputFolder))
 )
 
@@ -363,6 +362,7 @@ gulp.task('watch', ['browserSync'], cb => {
   $.watch(paths.imagemin.watch, () => runSequence(['imagemin'], 'build'))
   $.watch(paths.svgmin.watch, () => runSequence(['svgmin'], 'build'))
   $.watch(paths.php.watch, () => runSequence(['build']))
+  $.watch(paths.sw.watch, () => runSequence(['build']))
 })
 
 gulp.task('deploy', cb => {
