@@ -72,7 +72,7 @@
     "run-sequence": "^1.2.2",
     "tailwind-heropatterns": "0.0.7",
     "tailwindcss": "^0.7.3",
-    "tailwindcss-alpha": "^0.1.2",
+    "tailwindcss-alpha": "^0.1.4",
     "vinyl-buffer": "^1.0.0",
     "vinyl-named": "^1.1.0",
     "vinyl-source-stream": "^2.0.0",

@@ -11184,9 +11184,9 @@ tailwind-heropatterns@0.0.7:
   dependencies:
     lodash "^4.17.11"
 
-tailwindcss-alpha@^0.1.2:
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/tailwindcss-alpha/-/tailwindcss-alpha-0.1.3.tgz#f1a6065cb9b7d56b22a434af982b9032b9704805"
+tailwindcss-alpha@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/tailwindcss-alpha/-/tailwindcss-alpha-0.1.4.tgz#ae892fa96788f2a911ad2f594fe90a4804574b83"
   dependencies:
     color "^3.0.0"
 
