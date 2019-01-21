@@ -19,7 +19,7 @@
     "gulp-watch": "^5.0.1"
   },
   "dependencies": {
-    "autoprefixer": "^9.4.4",
+    "autoprefixer": "^9.4.5",
     "babel-core": "^6.10.4",
     "babel-loader": "^7.1.5",
     "babel-plugin-external-helpers": "^6.18.0",
