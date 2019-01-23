@@ -7,16 +7,16 @@ const images = () => {
         objectFitImages(e.target)
       }
     )
-
-    import(/* webpackChunkName: 'medium-zoom' */ 'medium-zoom').then(
-      ({ default: mediumZoom }) => {
-        mediumZoom([
-          ...document.querySelectorAll('[data-zoomable]'),
-          ...document.querySelectorAll('.markdown-body img')
-        ])
-      }
-    )
   })
+
+  import(/* webpackChunkName: 'medium-zoom' */ 'medium-zoom').then(
+    ({ default: mediumZoom }) => {
+      mediumZoom([
+        ...document.querySelectorAll('[data-zoomable]'),
+        ...document.querySelectorAll('.markdown-body img')
+      ])
+    }
+  )
 }
 
 export default images
