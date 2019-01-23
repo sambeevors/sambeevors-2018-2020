@@ -6,6 +6,27 @@
     "build": "npm install && composer install && gulp deploy --production",
     "watch": "npm install && composer install && gulp"
   },
+  "browserslist": [
+    ">0.25%",
+    "not op_mini all"
+  ],
+  "prettier": {
+    "singleQuote": true,
+    "semi": false
+  },
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "modules": false
+        }
+      ]
+    ],
+    "plugins": [
+      "syntax-dynamic-import"
+    ]
+  },
   "devDependencies": {
     "browser-sync": "^2.7.13",
     "eslint": "^5.12.0",
@@ -16,20 +37,20 @@
     "gulp-eslint": "^5.0.0",
     "gulp-newer": "^1.2.0",
     "gulp-stylelint": "^3.7.0",
-    "gulp-watch": "^5.0.1"
+    "gulp-watch": "^5.0.1",
+    "webpack-bundle-analyzer": "^3.0.3"
   },
   "dependencies": {
     "autoprefixer": "^9.4.4",
-    "babel-core": "^6.10.4",
-    "babel-loader": "^7.1.5",
-    "babel-plugin-external-helpers": "^6.18.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-register": "^6.22.0",
+    "babel-core": "^6.25.0",
+    "babel-eslint": "^8.2.2",
+    "babel-loader": "^7.1.1",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-preset-env": "^1.6.0",
     "cssnano": "^4.1.8",
     "dotenv": "^6.2.0",
     "event-stream": "3.3.4",
     "gulp": "^3.9.1",
-    "gulp-clean": "^0.4.0",
     "gulp-connect": "^5.7.0",
     "gulp-exec": "^3.0.2",
     "gulp-html-transform": "^2.3.1",
@@ -52,7 +73,7 @@
     "intersection-observer": "^0.5.1",
     "lazysizes": "^4.1.5",
     "medium-zoom": "^1.0.2",
-    "npm": "^6.5.0",
+    "name-all-modules-plugin": "^1.0.1",
     "object-fit-images": "^3.2.4",
     "postcss": "^6.0.20",
     "postcss-automath": "^1.0.1",
@@ -76,7 +97,8 @@
     "vinyl-buffer": "^1.0.0",
     "vinyl-named": "^1.1.0",
     "vinyl-source-stream": "^2.0.0",
-    "webpack": "^2.2.0",
+    "webpack": "^4.29.0",
+    "webpack-merge": "^4.2.1",
     "webpack-stream": "^5.2.1",
     "workbox-build": "^3.6.3",
     "workbox-sw": "^3.6.3",

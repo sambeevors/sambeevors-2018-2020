@@ -45,7 +45,7 @@ const paths = {
   },
   js: {
     watch: ['./source/_assets/js/**/*'],
-    src: ['./source/_assets/js/main.js', './source/_assets/js/sw.js'],
+    src: { main: './source/_assets/js/main.js' },
     dest: './source/js'
   },
   sw: {
@@ -144,53 +144,32 @@ gulp.task('css', () =>
   * Creates minified version
 
 */
-gulp.task('js', () => {
-  const streams = []
-  paths.js.src.forEach(item => {
-    streams.push(
-      gulp
-        .src(item)
-        .pipe(
-          $.webpackStream(
-            {
-              devtool: isProduction ? 'source-map' : 'eval-source-map',
-              module: {
-                rules: [
-                  {
-                    test: /\.m?js$/,
-                    loader: 'babel-loader'
-                  }
-                ]
-              },
-              plugins: isLocal
-                ? []
-                : [
-                    new $.webpack.optimize.UglifyJsPlugin({
-                      sourceMap: true,
-                      compress: {
-                        warnings: false
-                      }
-                    })
-                  ],
-              output: {
-                filename: item.split('/').pop()
-              }
-            },
-            $.webpack
-          )
-        )
-        .pipe(gulp.dest(paths.js.dest))
-    )
-  })
-  return es.merge(streams).on('end', $.browserSync.reload)
-})
-
-gulp.task('js:lint', () =>
+gulp.task('js', () =>
   gulp
-    .src(paths.js.watch)
-    .pipe($.plumber())
-    .pipe($.eslint())
-    .pipe($.eslint.format())
+    .src(paths.js.src.main)
+    .pipe(
+      $.webpackStream(
+        {
+          config: require(isProduction
+            ? './webpack.prod.js'
+            : './webpack.dev.js')
+        },
+        $.webpack,
+        (err, stats) => {
+          if (err) {
+            throw new $.util.PluginError('webpack:build', err)
+          }
+          $.util.log(
+            '[webpack]',
+            stats.toString({
+              chunks: false, // Makes the build much quieter
+              colors: true
+            })
+          )
+        }
+      )
+    )
+    .pipe(gulp.dest(paths.js.dest))
 )
 
 /*
@@ -353,12 +332,11 @@ gulp.task('serve', cb => {
   )
 })
 
-const jsTasks = isProduction ? ['js'] : ['js:lint', 'js']
 gulp.task('watch', ['browserSync'], cb => {
   $.watch('source/**/*.blade.php', () => runSequence('build'))
   $.watch(paths.css.watch, () => runSequence(['css'], 'build'))
   $.watch('tailwind-config.js', () => runSequence(['css'], 'build'))
-  $.watch(paths.js.watch, () => runSequence(jsTasks, 'build'))
+  $.watch(paths.js.watch, () => runSequence(['js'], 'build'))
   $.watch(paths.imagemin.watch, () => runSequence(['imagemin'], 'build'))
   $.watch(paths.svgmin.watch, () => runSequence(['svgmin'], 'build'))
   $.watch(paths.php.watch, () => runSequence(['build']))
