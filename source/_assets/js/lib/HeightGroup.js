@@ -1,18 +1,18 @@
 class HeightGroup {
-  constructor (querySelector) {
+  constructor(querySelector) {
     this.nodeList = document.querySelectorAll(querySelector)
     this.nodeHeights
     this.newHeight
   }
 
-  watchElements () {
+  watchElements() {
     window.addEventListener('resize', () => {
       this.matchHeights()
     })
     this.matchHeights()
   }
 
-  matchHeights () {
+  matchHeights() {
     this.nodeHeights = []
     this.newHeight = null
 

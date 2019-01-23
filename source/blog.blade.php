@@ -1,7 +1,7 @@
 ---
 pagination:
   collection: posts
-  perPage: 5
+  perPage: 4
 title: My Writings
 tagline: Here is a collection of articles I've written over time.
 ---
