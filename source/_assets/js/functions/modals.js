@@ -1,7 +1,7 @@
 import * as $ from 'pumpkin.js'
 import { IdleQueue } from 'idlize/IdleQueue.mjs'
 
-import Modal from '../lib/Modal'
+import Modal from '../lib/modal'
 
 const modals = () => {
   const queue = new IdleQueue()
