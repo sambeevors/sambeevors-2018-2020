@@ -90,7 +90,7 @@
     "precss": "^4.0.0",
     "pumpkin.js": "^0.3.0",
     "quicklink": "^1.0.0",
-    "run-sequence": "^1.2.2",
+    "run-sequence": "^2.2.1",
     "tailwind-heropatterns": "0.0.7",
     "tailwindcss": "^0.7.3",
     "tailwindcss-alpha": "^0.1.4",
