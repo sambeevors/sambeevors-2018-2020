@@ -1,0 +1,12 @@
+[build]
+  publish = "build_production/"
+  command = "make"
+
+[build.environment]
+  PHP_VERSION = 7.2
+
+[[headers]]
+    for = "/sw.js"
+    [headers.values]
+        cache-control = "max-age=0,no-cache,no-store,must-revalidate"
+
