@@ -24,3 +24,9 @@ And here is one in incognito mode:
 ![Lighthouse audit test in Chrome incognito mode](/img/blog/lighthouse-incog-chrome.png)
 
 As you can see, there's a massive hit to the performance metrics, and results in unreliable and inconsistent results. My recommendation, always run audits in incognito mode!
+
+---
+
+_**Editors note (25/01/2019)** - It looks as though Chrome have now updated their Audits section to inform their users of this potential issue. PageSpeed Insights no longer requires being run in incognito to get accurate results._
+
+![The new warning in Chrome](/img/blog/lighthouse-screenshot.png)
