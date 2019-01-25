@@ -3,7 +3,7 @@
   command = "make"
 
 [build.environment]
-  PHP_VERSION = 7.2
+  PHP_VERSION = "7.2"
 
 [[headers]]
     for = "/sw.js"
