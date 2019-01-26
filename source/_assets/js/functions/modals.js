@@ -8,6 +8,8 @@ const modals = () => {
 
   let $subscribeModal
   const $subscribeBtn = $.qsa('.js-subscribe')
+  const $burger = $.qs('.js-burger')
+  const $nav = $.qs('.js-nav')
 
   if ($subscribeBtn.length) {
     queue.pushTask(() => {

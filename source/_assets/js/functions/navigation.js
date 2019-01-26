@@ -3,6 +3,7 @@ import * as $ from 'pumpkin.js'
 const navigation = () => {
   const $burger = $.qs('.js-burger')
   const $nav = $.qs('.js-nav')
+  
   if ($burger && $nav) {
     $burger.addEventListener('click', function(e) {
       e.preventDefault()
