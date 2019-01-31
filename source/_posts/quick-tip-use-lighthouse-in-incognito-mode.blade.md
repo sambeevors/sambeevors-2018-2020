@@ -4,6 +4,7 @@ title: 'Quick Tip: Use lighthouse (and PageSpeed insights) in incognito mode'
 featured_image: /img/blog/lighthouse.jpg
 date: 2018-12-17
 section: content
+tags: ['web perforamnce', 'testing']
 ---
 
 I love [Lighthouse](https://developers.google.com/web/tools/lighthouse/). It's a priceless tool in keeping an eye on your websites performance, SEO, and best practices and I have used it ever since it shipped in Chrome. Recently, Google's [PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/) has also started using Lighthouse to record its metrics, which is also a massively popular tool used by developers and SEO analysts alike.
@@ -23,3 +24,9 @@ And here is one in incognito mode:
 ![Lighthouse audit test in Chrome incognito mode](/img/blog/lighthouse-incog-chrome.png)
 
 As you can see, there's a massive hit to the performance metrics, and results in unreliable and inconsistent results. My recommendation, always run audits in incognito mode!
+
+---
+
+_**Editors note (25/01/2019)** - It looks as though Chrome have now updated their Audits section to inform their users of this potential issue. PageSpeed Insights no longer requires being run in incognito to get accurate results._
+
+![The new warning in Chrome](/img/blog/lighthouse-screenshot.png)

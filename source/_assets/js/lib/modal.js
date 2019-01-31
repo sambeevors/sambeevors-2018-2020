@@ -1,7 +1,7 @@
 import * as $ from 'pumpkin.js'
 
 class Modal {
-  constructor (markup, classList) {
+  constructor(markup, classList) {
     this.hasMarkup = markup && typeof markup === 'object'
     if (this.hasMarkup) {
       this.modal = $.qs(markup.querySelector || 'form')
@@ -15,7 +15,7 @@ class Modal {
     }
   }
 
-  create (cb) {
+  create(cb) {
     if (!this.hasMarkup) document.body.appendChild(this.modal)
 
     $.on('click', this.modal, e => {
@@ -30,26 +30,35 @@ class Modal {
       this.closeModal()
     })
 
+    $.on('keydown', document, e => {
+      if (
+        !this.modal.classList.contains('pointer-events-none') &&
+        !this.modal.classList.contains('opacity-0')
+      ) {
+        if (e.keyCode === 27) this.closeModal()
+      }
+    })
+
     if (cb) cb()
   }
 
-  destroy (cb) {
+  destroy(cb) {
     document.removeChild(this.modal)
 
     if (cb) cb()
   }
 
-  toggleModal () {
+  toggleModal() {
     this.modal.classList.toggle('pointer-events-none')
     this.modal.classList.toggle('opacity-0')
   }
 
-  openModal () {
+  openModal() {
     this.modal.classList.remove('pointer-events-none')
     this.modal.classList.remove('opacity-0')
   }
 
-  closeModal () {
+  closeModal() {
     this.modal.classList.add('pointer-events-none')
     this.modal.classList.add('opacity-0')
   }

@@ -20,6 +20,10 @@
       @apply text-lg text-grey-darker;
     }
   }
+
+  hr {
+    @apply py-4 mt-4 pb-0 mb-0 border-t;
+  }
 }
 
 .bump-up {
@@ -30,5 +34,16 @@
   &:hover {
     @apply shadow;
     transform: translateY(-5px);
+  }
+}
+
+.tags span {
+  &::after {
+    display: inline-block;
+    content: ',';
+  }
+
+  &:last-child::after {
+    content: '';
   }
 }

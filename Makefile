@@ -2,7 +2,7 @@ node_version = 9
 
 all:
 	# Install Node deps
-	npm install
+	yarn
 
 	# Install composer deps
 	COMPOSER_HOME="~/.composer" composer install
@@ -15,7 +15,7 @@ gulp:
 	n ${node_version}
 
 	# Install Node deps
-	npm install
+	yarn
 
 	# Install composer deps
 	composer install
@@ -38,7 +38,7 @@ perms:
 	rm -rf node_modules
 
 	# Install node deps
-	npm install
+	yarn
 
 	# Install composer deps - requires php7.2
 	composer install
