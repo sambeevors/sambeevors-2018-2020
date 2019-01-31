@@ -582,7 +582,19 @@ module.exports = {
     '3xl': '80rem',
     '4xl': '90rem',
     '5xl': '100rem',
-    full: '100%'
+    '1/2': '50%',
+    '1/3': '33.33333%',
+    '2/3': '66.66667%',
+    '1/4': '25%',
+    '3/4': '75%',
+    '1/5': '20%',
+    '2/5': '40%',
+    '3/5': '60%',
+    '4/5': '80%',
+    '1/6': '16.66667%',
+    '5/6': '83.33333%',
+    full: '100%',
+    screen: '100vw'
   },
 
   /*
@@ -739,7 +751,8 @@ module.exports = {
     '20': 20,
     '30': 30,
     '40': 40,
-    '50': 50
+    '50': 50,
+    '100': 100
   },
 
   /*
@@ -885,9 +898,19 @@ module.exports = {
       center: true,
       padding: '1rem'
     }),
+    require('tailwindcss-multi-column')({
+      counts: [1, 2],
+      gaps: {
+        sm: '1rem',
+        md: '2rem',
+        lg: '4rem'
+      },
+      variants: ['responsive']
+    }),
     require('tailwindcss-alpha')({
       modules: {
-        backgroundColors: true
+        backgroundColors: true,
+        textColors: true
       },
       alpha: {
         '10': 0.1,
@@ -898,7 +921,8 @@ module.exports = {
         '60': 0.6,
         '70': 0.7,
         '80': 0.8,
-        '90': 0.9
+        '90': 0.9,
+        '95': 0.95
       }
     }),
     require('tailwind-heropatterns')({

@@ -43,11 +43,10 @@
     </head>
     <body class="font-sans leading-normal bg-white">
 
-        @include('_partials.nav', [
-            'color_dodge' => true
+        @include('_partials.header', [
+            'title' => 'Sam Beevors',
+            'tagline' => 'Here\'s an article I wrote on ' . date('F j, Y', $page->date)
         ])
-
-        <div class="js-nav-bar lg:hidden"><!-- --></div>
 
         @if ($page->featured_image)
             @include('_partials.lazyload-image', [
