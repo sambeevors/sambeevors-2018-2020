@@ -24,6 +24,23 @@
   hr {
     @apply py-4 mt-4 pb-0 mb-0 border-t;
   }
+
+  div,
+  ul {
+    @apply mb-4;
+  }
+
+  p > div {
+    @apply mb-0;
+  }
+
+  .iframe-container {
+    @apply relative;
+
+    > iframe {
+      @apply absolute pin w-full h-full;
+    }
+  }
 }
 
 .bump-up {

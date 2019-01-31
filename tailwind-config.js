@@ -925,26 +925,15 @@ module.exports = {
         '95': 0.95
       }
     }),
-    require('tailwind-heropatterns')({
-      // as per tailwind docs you can pass variants
-      variants: [],
-
-      // the list of patterns you want to generate a class for
-      // the names must be in kebab-case
-      // an empty array will generate all 87 patterns
-      patterns: [],
-
-      // The foreground colors of the pattern
-      colors: {
-        default: colors.purple,
-        'purple-light': colors['purple-light'],
-        orange: colors.orange
-      },
-
-      // The foreground opacity
-      opacities: {
-        default: '0.3',
-        '100': '1.0'
+    require('tailwindcss-aspect-ratio')({
+      ratios: {
+        square: [1, 1],
+        '1/1': [1, 1],
+        '4/3': [4, 3],
+        '5/4': [5, 4],
+        '16/9': [16, 9],
+        '18/9': [18, 9],
+        '21/9': [21, 9]
       }
     })
   ],

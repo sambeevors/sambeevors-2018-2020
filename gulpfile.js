@@ -103,7 +103,8 @@ gulp.task('css', () =>
             content: [
               './source/**/*.blade.php',
               './source/_assets/js/**/*.js',
-              './source/_assets/img/**/*.svg'
+              './source/_assets/img/**/*.svg',
+              './source/_posts/**/*.md'
             ],
             whitelistPatterns: [
               /flickity/,
