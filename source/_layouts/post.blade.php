@@ -26,6 +26,13 @@
             <meta name="description" content="{!! $page->excerpt(200) !!}">
             <meta name="keywords" content="@foreach ($page->tags as $tag){{ $tag }},@endforeach">
 
+            <script>
+                var disqus_config = function () {
+                    this.page.url = '{{ $page->getUrl() }}'; 
+                    this.page.identifier = '{{ $page->getFilename() }}';
+                }
+            </script>
+
             <noscript>
                 <style>
                     .lqip {
@@ -78,7 +85,11 @@
                 </p>
             </div>
 
-            <footer class="leading-normal mt-6 mt-10 pt-10 text-center text-grey-darker border-t border-grey-light">
+            <div class="mt-12 shadow overflow-hidden border-t-8 border-purple rounded-b p-8">
+                <div class="js-disqus"></div>
+            </div>
+
+            <footer class="leading-normal mt-6 pt-10 mt-10 text-center text-grey-darker">
                 <figure class="block w-16 h-16 rounded-full mx-auto overflow-hidden mb-3">
                     @include('_partials.lazyload-image', [
                         'src' => '/img/mini-me.jpg',
