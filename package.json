@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "browser-sync": "^2.7.13",
-    "eslint": "^5.13.0",
+    "eslint": "^5.14.1",
     "eslint-config-standard": "^7.1.0",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
