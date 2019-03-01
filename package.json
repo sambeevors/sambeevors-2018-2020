@@ -99,7 +99,7 @@
     "webpack": "^4.29.6",
     "webpack-merge": "^4.2.1",
     "webpack-stream": "^5.2.1",
-    "workbox-build": "^3.6.3",
+    "workbox-build": "^4.0.0",
     "workbox-sw": "^4.0.0",
     "yargs": "^13.1.0"
   }
