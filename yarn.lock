@@ -12155,10 +12155,10 @@ workbox-sw@^3.6.3:
   resolved "https://registry.yarnpkg.com/workbox-sw/-/workbox-sw-3.6.3.tgz#278ea4c1831b92bbe2d420da8399176c4b2789ff"
   integrity sha512-IQOUi+RLhvYCiv80RP23KBW/NTtIvzvjex28B8NW1jOm+iV4VIu3VXKXTA6er5/wjjuhmtB28qEAUqADLAyOSg==
 
-workbox-sw@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/workbox-sw/-/workbox-sw-4.0.0.tgz#7cd07470ee79d4caaf829c2ee97c29651d508027"
-  integrity sha512-lVSNtzOPbycn8pSuNtfroT+lXNBry8sUL1494cURIZE1MMFcxCZRv/718LoKIBeJnRYBKa/sXO2GXLzssHX15w==
+workbox-sw@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/workbox-sw/-/workbox-sw-4.1.1.tgz#037031ec107c9befe568064679d16fc03748ff02"
+  integrity sha512-3nQFWFyG1W21x7TUVBsobrLoFDEy7ck/3nx2W1I3c+DhLCIu7B+IAnQVdefK+oRju5fIDWwOQ63fok8Uz7E/Gw==
 
 worker-farm@^1.5.2:
   version "1.6.0"
