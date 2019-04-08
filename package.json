@@ -101,6 +101,6 @@
     "webpack-stream": "^5.2.1",
     "workbox-build": "^4.2.0",
     "workbox-sw": "^4.2.0",
-    "yargs": "^13.1.0"
+    "yargs": "^13.2.2"
   }
 }
