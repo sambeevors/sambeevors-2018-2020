@@ -85,7 +85,7 @@
     "postcss-url": "^8.0.0",
     "precss": "^4.0.0",
     "promise-polyfill": "^8.1.0",
-    "pumpkin.js": "^0.3.0",
+    "pumpkin.js": "^1.0.2",
     "quicklink": "^1.0.0",
     "run-sequence": "^2.2.1",
     "tailwind-heropatterns": "0.0.7",
