@@ -8267,12 +8267,12 @@ postcss-automath@^1.0.1:
     postcss "^5.2.4"
     postcss-message-helpers "^2.0.0"
 
-postcss-browser-reporter@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/postcss-browser-reporter/-/postcss-browser-reporter-0.5.0.tgz#ae069dd086d57388d196e1dac39cb8d7626feb48"
-  integrity sha1-rgad0IbVc4jRluHaw5y412Jv60g=
+postcss-browser-reporter@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/postcss-browser-reporter/-/postcss-browser-reporter-0.6.0.tgz#72f6b8fe89f5ff4ed1ab781cd3c256e0f415f395"
+  integrity sha512-61gzk4wgthOIen4TRURzYYVVIszyvcorkYmD40CopdM8cdwJaCTDMYo/y8HQqjTPqyelw7r2ptncmR9xrWpVnw==
   dependencies:
-    postcss "^5.0.4"
+    postcss "^7.0.14"
 
 postcss-calc@^6.0.0:
   version "6.0.2"
@@ -9268,7 +9268,7 @@ postcss-values-parser@^2.0.0:
     indexes-of "^1.0.1"
     uniq "^1.0.1"
 
-postcss@^5.0.17, postcss@^5.0.4, postcss@^5.0.5, postcss@^5.0.8, postcss@^5.1.0, postcss@^5.2.16, postcss@^5.2.4:
+postcss@^5.0.17, postcss@^5.0.5, postcss@^5.0.8, postcss@^5.1.0, postcss@^5.2.16, postcss@^5.2.4:
   version "5.2.18"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-5.2.18.tgz#badfa1497d46244f6390f58b319830d9107853c5"
   integrity sha512-zrUjRRe1bpXKsX1qAJNJjqZViErVuyEkMTRrwu4ud4sbTtIBRmtaYDrHmcGgmrbsW3MHfmtIf+vJumgQn+PrXg==
