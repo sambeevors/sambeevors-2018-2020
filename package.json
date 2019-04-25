@@ -67,7 +67,7 @@
     "gulp-util": "^3.0.7",
     "idlize": "^0.1.1",
     "imagesloaded": "^4.1.1",
-    "intersection-observer": "^0.5.1",
+    "intersection-observer": "^0.6.0",
     "lazysizes": "^4.1.7",
     "medium-zoom": "^1.0.4",
     "name-all-modules-plugin": "^1.0.1",
