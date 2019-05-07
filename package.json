@@ -49,7 +49,7 @@
     "babel-preset-env": "^1.6.0",
     "cssnano": "^4.1.10",
     "event-stream": "3.3.4",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-connect": "^5.7.0",
     "gulp-exec": "^3.0.2",
     "gulp-html-transform": "^2.3.1",
