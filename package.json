@@ -89,7 +89,7 @@
     "quicklink": "^1.0.0",
     "run-sequence": "^2.2.1",
     "tailwind-heropatterns": "0.0.7",
-    "tailwindcss": "^0.7.3",
+    "tailwindcss": "^1.0.1",
     "tailwindcss-alpha": "^0.1.4",
     "tailwindcss-aspect-ratio": "^1.0.1",
     "tailwindcss-multi-column": "^0.2.0",
