@@ -51,16 +51,19 @@ class Modal {
   toggleModal() {
     this.modal.classList.toggle('pointer-events-none')
     this.modal.classList.toggle('opacity-0')
+    document.body.classList.toggle('overflow-hidden')
   }
 
   openModal() {
     this.modal.classList.remove('pointer-events-none')
     this.modal.classList.remove('opacity-0')
+    document.body.classList.add('overflow-hidden')
   }
 
   closeModal() {
     this.modal.classList.add('pointer-events-none')
     this.modal.classList.add('opacity-0')
+    document.body.classList.remove('overflow-hidden')
   }
 }
 
