@@ -79,7 +79,7 @@
         DISQUS.reset({ reload: true, config: disqusConfig })
       } // unloaded | loading
       else {
-        window.disqus_config = disqusConfig
+        if (!window.disqus_config) window.disqus_config = disqusConfig
         if (scriptStatus == 'unloaded') {
           scriptStatus = 'loading'
           loadScript(scriptUrl, function() {
