@@ -51,7 +51,7 @@
     <body class="font-sans leading-normal bg-white">
 
         @include('_partials.header', [
-            'title' => 'Sam Beevors',
+            'title' => false,
             'tagline' => 'Here\'s an article I wrote on ' . date('F j, Y', $page->date)
         ])
 
