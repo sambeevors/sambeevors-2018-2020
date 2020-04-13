@@ -11006,10 +11006,10 @@ table@^5.2.3:
     slice-ansi "^2.1.0"
     string-width "^3.0.0"
 
-tailwind-heropatterns@0.0.7:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/tailwind-heropatterns/-/tailwind-heropatterns-0.0.7.tgz#99b185c3cd15f71eabb5f4b39011b2c856d592ee"
-  integrity sha512-MoAzXqnfCfmhvxwB7q7R9FdPcYnyg7UEcTqLKasXhNvVsWX/zGkm49Il4avGq+LA/imBgTjva8AUwaXv7vqbYA==
+tailwind-heropatterns@0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/tailwind-heropatterns/-/tailwind-heropatterns-0.0.8.tgz#280a39c469f996873237b4fe7caab3cb3a1f7c23"
+  integrity sha512-no7lc5K9TF5Jy8GyfIq/F1/nS2HbwGPObwaeauRQJLZybE41BkCCVyew23O1m3ljYSE436YwHdNuphxfKF7ZgA==
   dependencies:
     lodash "^4.17.11"
 
