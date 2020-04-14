@@ -6401,10 +6401,10 @@ lazy-req@^1.0.0:
   resolved "https://registry.yarnpkg.com/lazy-req/-/lazy-req-1.1.0.tgz#bdaebead30f8d824039ce0ce149d4daa07ba1fac"
   integrity sha1-va6+rTD42CQDnODOFJ1Nqge6H6w=
 
-lazysizes@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/lazysizes/-/lazysizes-5.1.0.tgz#a87d413aa3765dee03fcb2159f423ab84ed2f2e6"
-  integrity sha512-5NsKePWiWTTCXf3xKFaLOXE6eEX0Y1iWpxYAHnPRiv4JrDpUmgRnuDxeDeskw4hue9SgViXbAtEEvP9Jd8yZfQ==
+lazysizes@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/lazysizes/-/lazysizes-5.2.0.tgz#352c2f095e1528b190f61178c140522dcf9ffce4"
+  integrity sha512-931KnHwsdCm7U7/S0GDj6FSkPvQ3ugGw65J5Plp2Mq1gBTPl9VShU+cIIX6uRr+dit+APDLmvx1FwjDll5bHLQ==
 
 lazystream@^1.0.0:
   version "1.0.0"
