@@ -91,7 +91,7 @@
     "tailwind-heropatterns": "0.0.7",
     "tailwindcss": "^0.7.3",
     "tailwindcss-alpha": "^0.1.4",
-    "tailwindcss-aspect-ratio": "^1.0.3",
+    "tailwindcss-aspect-ratio": "^3.0.0",
     "tailwindcss-multi-column": "^0.2.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-named": "^1.1.0",
