@@ -69,7 +69,7 @@
     "imagesloaded": "^4.1.1",
     "intersection-observer": "^0.7.0",
     "lazysizes": "^5.1.0",
-    "medium-zoom": "^1.0.4",
+    "medium-zoom": "^1.0.6",
     "name-all-modules-plugin": "^1.0.1",
     "object-fit-images": "^3.2.4",
     "postcss": "^7.0.16",
