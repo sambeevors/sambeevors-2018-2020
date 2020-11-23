@@ -72,7 +72,7 @@
     "medium-zoom": "^1.0.4",
     "name-all-modules-plugin": "^1.0.1",
     "object-fit-images": "^3.2.4",
-    "postcss": "^7.0.16",
+    "postcss": "^8.1.9",
     "postcss-automath": "^1.0.1",
     "postcss-browser-reporter": "^0.6.0",
     "postcss-cssnext": "^3.1.0",
